@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import StatCard from "../components/dashboard/StatCard";
-import AIInsightsCard from "../components/dashboard/AIInsightsCard"; // make sure this path is correct
+import AIInsightsCard from "../components/dashboard/AIInsightsCard";
 import { dashboardStats } from "../data/dashboardData";
 import { Calendar, Download } from "lucide-react";
 import { Layout } from "../components/Layout/Layout";
@@ -17,7 +17,6 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      {/* Top Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -32,7 +31,6 @@ export default function Dashboard() {
             Dashboard
           </h1>
         </div>
-
         <div className="flex flex-wrap items-center gap-4">
           <button className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-sm font-semibold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
             <Calendar size={16} />
@@ -45,14 +43,21 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         {dashboardStats.map((stat) => (
-          <StatCard key={stat.id} {...stat} />
+          <StatCard
+            key={stat.id}
+            id={stat.id}
+            title={stat.title}
+            value={stat.value}
+            icon={stat.icon}
+            change={stat.change}
+            period={stat.period}
+            data={stat.data}
+          />
         ))}
       </div>
 
-      {/* AI Insights Section */}
       <div className="mt-8">
         <AIInsightsCard
           title="Neural Logic Insight"
@@ -60,7 +65,7 @@ export default function Dashboard() {
             "AI detected a shift in user sentiment toward sustainable features.",
             "Optimizing database indexing could reduce latency by 240ms.",
             "Anomaly detected in region US-EAST-1: potential traffic spike predicted for 14:00 UTC.",
-            "New personalization vector available based on last 48 hours of interaction data."
+            "New personalization vector available based on last 48 hours of interaction data.",
           ]}
         />
       </div>
