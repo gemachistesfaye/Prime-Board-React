@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// Student type definition
 interface Student {
   id: string;
   name: string;
@@ -21,25 +20,15 @@ export default function Students() {
   const [students, setStudents] = useState<Student[]>(initialStudents);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-
-  /
   const [editId, setEditId] = useState<string | null>(null);
-
-
   const [editStudent, setEditStudent] = useState<Student | null>(null);
-
   const [searchQuery, setSearchQuery] = useState<string>("");
-
-  
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  // ─── Add Student ──────────────────────────────────────────────────────────
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-
-
     const newStudent: Student = {
       id: Date.now().toString(),
       name: String(data.get("name") ?? ""),
@@ -48,24 +37,20 @@ export default function Students() {
       status: "Active",
       joined: new Date().toISOString().split("T")[0],
     };
-
     setStudents((prev) => [...prev, newStudent]);
     setShowAddModal(false);
     form.reset();
   };
 
-  // ─── Edit Student ─────────────────────────────────────────────────────────
   const handleEditOpen = (student: Student) => {
-    setEditId(student.id);       
-    setEditStudent(student);      
+    setEditId(student.id);
+    setEditStudent(student);
   };
 
   const handleEditSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-
-   
     setStudents((prev) =>
       prev.map((s) =>
         s.id === editId
@@ -83,13 +68,11 @@ export default function Students() {
     setEditStudent(null);
   };
 
-  // ─── Delete Student ───────────────────────────────────────────────────────
   const handleDeleteConfirm = () => {
     setStudents((prev) => prev.filter((s) => s.id !== deleteId));
     setDeleteId(null);
   };
 
-  // ─── Filter ───────────────────────────────────────────────────────────────
   const filtered = students.filter(
     (s) =>
       s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -97,7 +80,6 @@ export default function Students() {
       s.coarse.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // ─── Render ───────────────────────────────────────────────────────────────
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
@@ -110,7 +92,6 @@ export default function Students() {
         </button>
       </div>
 
-      {/* Search */}
       <input
         type="text"
         placeholder="Search students..."
@@ -119,7 +100,6 @@ export default function Students() {
         className="mb-4 w-full max-w-sm px-4 py-2 border rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white"
       />
 
-      {/* Table */}
       <div className="overflow-x-auto rounded-2xl shadow">
         <table className="w-full text-sm text-left">
           <thead className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs">
@@ -136,9 +116,8 @@ export default function Students() {
             {filtered.map((student) => (
               <tr
                 key={student.id}
-                className="border-b dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750"
+                className="border-b dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
               >
-                
                 <td className="px-4 py-3 font-medium text-gray-800 dark:text-white">{student.name}</td>
                 <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{student.email}</td>
                 <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{student.coarse}</td>
@@ -174,7 +153,6 @@ export default function Students() {
         </table>
       </div>
 
-      {/* Add Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md shadow-xl">
@@ -192,7 +170,6 @@ export default function Students() {
         </div>
       )}
 
-      {/* Edit Modal */}
       {showEditModal && editStudent && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md shadow-xl">
@@ -210,7 +187,6 @@ export default function Students() {
         </div>
       )}
 
-      {/* Delete Confirm */}
       {deleteId && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-sm shadow-xl text-center">
