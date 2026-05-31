@@ -1,7 +1,7 @@
 {
-  "name": "buildsphere-react-dashboard-templa",
+  "name": "primeboard",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -22,7 +22,6 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@types/react-router-dom": "^5.3.3",
     "@types/recharts": "^1.8.29",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.27",
