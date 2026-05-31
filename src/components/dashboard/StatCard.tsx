@@ -7,14 +7,18 @@ export interface StatCardProps {
   icon: ReactNode;
   change?: string;
   changeType?: "up" | "down";
+  period?: string;
+  data?: number[];
 }
 
-export default function StatCard({
+export function StatCard({
   title,
   value,
   icon,
   change,
   changeType,
+  period,
+  data,
 }: StatCardProps) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow flex items-center gap-4">
@@ -24,6 +28,9 @@ export default function StatCard({
       <div>
         <p className="text-sm text-gray-500 dark:text-gray-400">{title}</p>
         <p className="text-2xl font-bold text-gray-800 dark:text-white">{value}</p>
+
+        {data && <span className="sr-only">{data.length}</span>}
+        {period && <p className="text-sm text-gray-500 dark:text-gray-400">{period}</p>}
         {change && (
           <p
             className={`text-xs mt-1 ${
