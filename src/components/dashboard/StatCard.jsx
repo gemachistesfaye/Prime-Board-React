@@ -1,16 +1,3 @@
-import type { ReactNode } from "react";
-
-
-export interface StatCardProps {
-  title: string;
-  value: string | number;
-  icon: ReactNode;
-  change?: string;
-  changeType?: "up" | "down";
-  period?: string;
-  data?: number[];
-}
-
 export function StatCard({
   title,
   value,
@@ -19,9 +6,9 @@ export function StatCard({
   changeType,
   period,
   data,
-}: StatCardProps) {
+}) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow flex items-center gap-4">
+    <div className="glass-card rounded-2xl p-5 flex items-center gap-4">
       <div className="p-3 bg-indigo-100 dark:bg-indigo-900 rounded-xl text-indigo-600 dark:text-indigo-300">
         {icon}
       </div>
@@ -44,3 +31,4 @@ export function StatCard({
     </div>
   );
 }
+export default StatCard;

@@ -1,47 +1,22 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Layout } from '../components/Layout/Layout';
 import { 
-  Search, 
-  Download, 
-  PlaneTakeoff, 
-  CheckCircle2, 
-  XCircle,
-  Trash2,
-  UserCheck,
-  UserX,
-  Edit2,
-  ChevronLeft,
-  ChevronRight,
-  AlertTriangle,
-  Plus,
-  Mail,
-  Calendar,
-  Plane,
-  MoreVertical
+  Search, Download, PlaneTakeoff, CheckCircle2, XCircle, Trash2,
+  UserCheck, UserX, Edit2, ChevronLeft, ChevronRight, AlertTriangle,
+  Plus, Mail, Calendar, Plane, MoreVertical
 } from 'lucide-react';
 
-
- interface BookingType {
-  id: string;
-  passenger: string;
-  email: string;
-  flight: string;
-  date: string;
-  status: string;
-}
 export default function Booking() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingBooking, setEditingBooking] = useState<BookingType | null>(null);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [editingBooking, setEditingBooking] = useState(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [selectedTab, setSelectedTab] = useState('All');
- const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
+  const [activeMenuId, setActiveMenuId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
- 
-
-  const [bookings, setBookings] = useState<BookingType[]>([
+  const [bookings, setBookings] = useState([
     { id: "BK001", passenger: "Alex Johnson", email: "alex.j@example.com", status: "Confirmed", flight: "ET302", date: "Oct 12, 2024" },
     { id: "BK002", passenger: "Sarah Williams", email: "sarah.w@example.com", status: "Confirmed", flight: "ET118", date: "Nov 05, 2024" },
     { id: "BK003", passenger: "Michael Chen", email: "m.chen@example.com", status: "Cancelled", flight: "SQ421", date: "Sep 20, 2024" },
@@ -71,22 +46,20 @@ export default function Booking() {
   const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
   const currentItems = filteredBookings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-  useEffect(() => {
-    setCurrentPage(1); 
-  }, [searchTerm, selectedTab]);
+  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedTab]);
 
   const handleDelete = () => {
     setBookings(prev => prev.filter(s => s.id !== confirmDeleteId));
     setConfirmDeleteId(null);
   };
 
-const handleEdit = (booking: BookingType) => {
-  setEditingBooking(booking);
-  setIsModalOpen(true);
-  setActiveMenuId(null);
-};
+  const handleEdit = (booking) => {
+    setEditingBooking(booking);
+    setIsModalOpen(true);
+    setActiveMenuId(null);
+  };
 
-  const toggleStatus = (id: string) => {
+  const toggleStatus = (id) => {
     setBookings(prev => prev.map(s => {
       if (s.id === id) {
         const nextStatus = s.status === 'Confirmed' ? 'Cancelled' : 'Confirmed';
@@ -96,84 +69,44 @@ const handleEdit = (booking: BookingType) => {
     }));
     setActiveMenuId(null);
   };
-const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  const formData = new FormData(e.currentTarget);
 
-  // Convert FormDataEntryValue | null to string safely
-  const data: Omit<BookingType, 'id'> = {
-    passenger: (formData.get('passenger') as string) || '',
-    email: (formData.get('email') as string) || '',
-    flight: (formData.get('flight') as string) || '',
-    date: (formData.get('date') as string) || '',
-    status: (formData.get('status') as string) || 'Confirmed',
-  };
-
-  if (editingBooking) {
-    setBookings(prev =>
-      prev.map(b => (b.id === editingBooking.id ? { ...b, ...data } : b))
-    );
-  } else {
-    const newBooking: BookingType = {
-      id: `BK${Math.floor(1000 + Math.random() * 9000)}`,
-      ...data,
+  const handleSave = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      passenger: formData.get('passenger') || '',
+      email: formData.get('email') || '',
+      flight: formData.get('flight') || '',
+      date: formData.get('date') || '',
+      status: formData.get('status') || 'Confirmed',
     };
-    setBookings([newBooking, ...bookings]);
-  }
 
-  setIsModalOpen(false);
-  setEditingBooking(null);
-};
+    if (editingBooking) {
+      setBookings(prev => prev.map(b => (b.id === editingBooking.id ? { ...b, ...data } : b)));
+    } else {
+      const newBooking = { id: `BK${Math.floor(1000 + Math.random() * 9000)}`, ...data };
+      setBookings([newBooking, ...bookings]);
+    }
+    setIsModalOpen(false);
+    setEditingBooking(null);
+  };
 
   return ( 
     <Layout>
     <div className="min-h-screen p-4 sm:p-6 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-200">
-      
-      {/* EXPORT STYLES: This ensures the PDF only shows passenger data */}
       <style>{`
         @media print {
-          .no-print, nav, aside, footer, button, .modal-backdrop, .search-container, .tabs-container { 
-            display: none !important; 
-          }
-          .print-only { 
-            display: block !important; 
-            width: 100% !important;
-          }
-          body { 
-            background: white !important; 
-            color: black !important; 
-            margin: 0 !important; 
-            padding: 1.5cm !important; 
-          }
-          .pdf-table {
-            width: 100% !important;
-            border-collapse: collapse !important;
-            margin-top: 20px !important;
-          }
-          .pdf-table th {
-            background-color: #f3f4f6 !important;
-            color: #374151 !important;
-            text-align: left !important;
-            padding: 10px !important;
-            border: 1px solid #e5e7eb !important;
-            font-size: 11px !important;
-            text-transform: uppercase !important;
-          }
-          .pdf-table td {
-            padding: 10px !important;
-            border: 1px solid #e5e7eb !important;
-            font-size: 10px !important;
-          }
-          .pdf-header {
-            border-bottom: 2px solid #000 !important;
-            margin-bottom: 20px !important;
-            padding-bottom: 10px !important;
-          }
+          .no-print, nav, aside, footer, button, .modal-backdrop, .search-container, .tabs-container { display: none !important; }
+          .print-only { display: block !important; width: 100% !important; }
+          body { background: white !important; color: black !important; margin: 0 !important; padding: 1.5cm !important; }
+          .pdf-table { width: 100% !important; border-collapse: collapse !important; margin-top: 20px !important; }
+          .pdf-table th { background-color: #f3f4f6 !important; color: #374151 !important; text-align: left !important; padding: 10px !important; border: 1px solid #e5e7eb !important; font-size: 11px !important; text-transform: uppercase !important; }
+          .pdf-table td { padding: 10px !important; border: 1px solid #e5e7eb !important; font-size: 10px !important; }
+          .pdf-header { border-bottom: 2px solid #000 !important; margin-bottom: 20px !important; padding-bottom: 10px !important; }
         }
         .print-only { display: none; }
       `}</style>
 
-      {/* --- DASHBOARD UI (HIDDEN DURING PRINT) --- */}
       <div className="no-print max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
@@ -181,76 +114,45 @@ const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
             <p className="text-slate-500 dark:text-slate-400 mt-1">Manage global travel manifests and passenger status.</p>
           </div>
           <div className="flex gap-3">
-            <button 
-              onClick={() => window.print()}
-              className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 transition-all text-sm font-medium"
-            >
-              <Download size={18} />
-              Export Manifest
+            <button onClick={() => window.print()} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 transition-all text-sm font-medium">
+              <Download size={18} /> Export Manifest
             </button>
-            <button 
-              onClick={() => { setEditingBooking(null); setIsModalOpen(true); }}
-              className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg transition-all text-sm font-medium"
-            >
-              <Plus size={18} />
-              Add Booking
+            <button onClick={() => { setEditingBooking(null); setIsModalOpen(true); }} className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg transition-all text-sm font-medium">
+              <Plus size={18} /> Add Booking
             </button>
           </div>
         </div>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="glass-card p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-blue-100 dark:bg-blue-500/10 text-blue-600 rounded-xl"><PlaneTakeoff size={24} /></div>
-              <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase">Total Passengers</p>
-                <h3 className="text-2xl font-bold">{stats.total}</h3>
-              </div>
+              <div><p className="text-xs font-semibold text-slate-500 uppercase">Total Passengers</p><h3 className="text-2xl font-bold">{stats.total}</h3></div>
             </div>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="glass-card p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 rounded-xl"><CheckCircle2 size={24} /></div>
-              <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase">Confirmed</p>
-                <h3 className="text-2xl font-bold">{stats.confirmed}</h3>
-              </div>
+              <div><p className="text-xs font-semibold text-slate-500 uppercase">Confirmed</p><h3 className="text-2xl font-bold">{stats.confirmed}</h3></div>
             </div>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="glass-card p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-rose-100 dark:bg-rose-500/10 text-rose-600 rounded-xl"><XCircle size={24} /></div>
-              <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase">Cancelled</p>
-                <h3 className="text-2xl font-bold">{stats.cancelled}</h3>
-              </div>
+              <div><p className="text-xs font-semibold text-slate-500 uppercase">Cancelled</p><h3 className="text-2xl font-bold">{stats.cancelled}</h3></div>
             </div>
           </div>
         </div>
 
-        {/* Search & Filter Container */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden mb-8">
+        <div className="glass-card overflow-hidden mb-8">
           <div className="p-4 border-b border-slate-200 dark:border-slate-700 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div className="relative search-container w-full lg:w-auto">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <input 
-                type="text"
-                placeholder="Search name, email, or flight..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 w-full lg:w-80 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 outline-none text-sm"
-              />
+              <input type="text" placeholder="Search name, email, or flight..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10 pr-4 py-2 w-full lg:w-80 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 outline-none text-sm" />
             </div>
             <div className="flex items-center gap-2 tabs-container overflow-x-auto pb-1 lg:pb-0">
               {['All', 'Confirmed', 'Pending', 'Cancelled'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setSelectedTab(tab)}
-                  className={`px-4 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
-                    selectedTab === tab ? 'bg-blue-100 dark:bg-blue-500/20 text-blue-600' : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700'
-                  }`}
-                >
+                <button key={tab} onClick={() => setSelectedTab(tab)} className={`px-4 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${selectedTab === tab ? 'bg-blue-100 dark:bg-blue-500/20 text-blue-600' : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700'}`}>
                   {tab}
                 </button>
               ))}
@@ -296,12 +198,9 @@ const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right relative">
- <button
-  onClick={() => setActiveMenuId(activeMenuId === booking.id ? null : booking.id)}
-  className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-400 transition-colors"
->
-  <MoreVertical size={16} />
-</button>
+                      <button onClick={() => setActiveMenuId(activeMenuId === booking.id ? null : booking.id)} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-400 transition-colors">
+                        <MoreVertical size={16} />
+                      </button>
                       {activeMenuId === booking.id && (
                         <div className="absolute right-6 mt-1 w-36 bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 rounded-xl z-50 text-left py-1.5 overflow-hidden">
                           <button onClick={() => handleEdit(booking)} className="w-full px-4 py-2 text-xs hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2"><Edit2 size={12}/> Edit Details</button>
@@ -319,7 +218,6 @@ const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
             </table>
           </div>
 
-          {/* Pagination */}
           <div className="p-4 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between bg-slate-50/30 dark:bg-slate-900/10">
             <span className="text-[10px] font-bold uppercase text-slate-500 tracking-wider">Page {currentPage} of {totalPages}</span>
             <div className="flex gap-2">
@@ -330,72 +228,37 @@ const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
         </div>
       </div>
 
-      {/* --- PURE PASSENGER DATA PRINT CONTAINER (ONLY SEEN IN EXPORT) --- */}
       <div className="print-only">
         <div className="pdf-header">
           <h1 className="text-xl font-bold uppercase">Passenger Manifest Report</h1>
           <p className="text-[10px]">Reference: FLIGHT-EX-992 | Date: {new Date().toLocaleDateString()}</p>
         </div>
-
         <div className="grid grid-cols-3 gap-4 mb-8">
           <div className="border border-gray-300 p-2 text-center text-[10px]"><strong>Total Capacity:</strong> {stats.total}</div>
           <div className="border border-gray-300 p-2 text-center text-[10px]"><strong>Confirmed Seats:</strong> {stats.confirmed}</div>
           <div className="border border-gray-300 p-2 text-center text-[10px]"><strong>Cancellations:</strong> {stats.cancelled}</div>
         </div>
-
         <table className="pdf-table">
-          <thead>
-            <tr>
-              <th>Manifest ID</th>
-              <th>Passenger Name</th>
-              <th>Email</th>
-              <th>Flight No.</th>
-              <th>Status</th>
-              <th>Travel Date</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Manifest ID</th><th>Passenger Name</th><th>Email</th><th>Flight No.</th><th>Status</th><th>Travel Date</th></tr></thead>
           <tbody>
             {bookings.map((s) => (
-              <tr key={s.id}>
-                <td>{s.id}</td>
-                <td><strong>{s.passenger}</strong></td>
-                <td>{s.email}</td>
-                <td>{s.flight}</td>
-                <td className="uppercase">{s.status}</td>
-                <td>{s.date}</td>
-              </tr>
+              <tr key={s.id}><td>{s.id}</td><td><strong>{s.passenger}</strong></td><td>{s.email}</td><td>{s.flight}</td><td className="uppercase">{s.status}</td><td>{s.date}</td></tr>
             ))}
           </tbody>
         </table>
-        
-        <div className="mt-12 pt-4 border-t border-gray-200 text-[8px] text-gray-400 text-center">
-          Automated System Export - Confidential Flight Data - Page 1 of 1
-        </div>
+        <div className="mt-12 pt-4 border-t border-gray-200 text-[8px] text-gray-400 text-center">Automated System Export - Confidential Flight Data - Page 1 of 1</div>
       </div>
 
-      {/* --- MODALS --- */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm no-print">
           <div className="bg-white dark:bg-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl border border-slate-200 dark:border-slate-700">
             <h2 className="text-xl font-bold mb-6 dark:text-white">{editingBooking ? 'Edit Booking' : 'Add New Booking'}</h2>
             <form onSubmit={handleSave} className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Passenger Name</label>
-                <input name="passenger" defaultValue={editingBooking?.passenger} required className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" />
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Email Address</label>
-                <input name="email" type="email" defaultValue={editingBooking?.email} required className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" />
-              </div>
+              <div><label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Passenger Name</label><input name="passenger" defaultValue={editingBooking?.passenger} required className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" /></div>
+              <div><label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Email Address</label><input name="email" type="email" defaultValue={editingBooking?.email} required className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" /></div>
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Flight Code</label>
-                  <input name="flight" defaultValue={editingBooking?.flight} required className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-sm" />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Date</label>
-                  <input name="date" placeholder="Oct 12, 2024" defaultValue={editingBooking?.date} required className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-sm" />
-                </div>
+                <div><label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Flight Code</label><input name="flight" defaultValue={editingBooking?.flight} required className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-sm" /></div>
+                <div><label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Date</label><input name="date" placeholder="Oct 12, 2024" defaultValue={editingBooking?.date} required className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-sm" /></div>
               </div>
               <div className="flex gap-3 mt-8">
                 <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-2.5 border dark:border-slate-700 rounded-xl text-sm font-semibold transition-colors hover:bg-slate-50 dark:hover:bg-slate-700">Cancel</button>
@@ -406,7 +269,6 @@ const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
         </div>
       )}
 
-      {/* Delete Confirmation Dialog */}
       {confirmDeleteId && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm no-print">
           <div className="bg-white dark:bg-slate-800 w-full max-w-sm rounded-2xl p-6 shadow-2xl border-rose-100 dark:border-rose-900/30 border">

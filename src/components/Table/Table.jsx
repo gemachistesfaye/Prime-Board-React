@@ -1,10 +1,4 @@
-
-interface TableProps {
-  columns: string[];
-  data: any[];
-}
-
-export const Table = ({ columns, data }: TableProps) => {
+export const Table = ({ columns, data }) => {
   return (
     <div className="overflow-x-auto w-full">
       <table className="w-full text-sm text-left text-slate-600 dark:text-slate-300">
@@ -18,7 +12,7 @@ export const Table = ({ columns, data }: TableProps) => {
           </tr>
         </thead>
         <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
-          {data.map((row: any, idx) => (
+          {data.map((row, idx) => (
             <tr
               key={row.id || idx}
               className="bg-white dark:bg-slate-800 hover:bg-blue-50/50 dark:hover:bg-blue-900/30 transition-colors duration-200"

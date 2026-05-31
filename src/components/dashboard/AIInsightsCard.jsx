@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, BrainCircuit, TrendingUp, Lightbulb, ChevronRight } from 'lucide-react';
 
-interface AIInsightsCardProps {
-  title?: string;
-  insights?: string[];
-}
-
-const AIInsightsCard: React.FC<AIInsightsCardProps> = ({ 
+const AIInsightsCard = ({ 
   title = "AI Analysis", 
   insights = [
     "Detected 15% efficiency gap in current workflow.",
@@ -32,7 +27,7 @@ const AIInsightsCard: React.FC<AIInsightsCardProps> = ({
     <div className="relative group max-w-md w-full p-6">
       <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
 
-      <div className="relative bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 backdrop-blur-xl rounded-2xl p-6 shadow-2xl overflow-hidden">
+      <div className="relative glass-card rounded-2xl p-6 overflow-hidden">
         <div className="flex items-center gap-3 mb-6">
           <div className="p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl shadow-inner border border-slate-200 dark:border-slate-700">
             {getHeaderIcon()}

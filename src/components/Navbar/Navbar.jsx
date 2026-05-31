@@ -1,18 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import type { Dispatch, SetStateAction } from "react";
 import { 
   Search, Bell, ChevronDown, Sun, Moon, User, LogOut, CheckCircle2, Clock, AlertTriangle, Circle 
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-
-
-interface NavbarProps {
-  isDarkMode: boolean;
-  setIsDarkMode: Dispatch<SetStateAction<boolean>>;
-}
-
-const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
+const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const navigate = useNavigate();
@@ -25,8 +17,8 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
     { id: 3, title: "Server Update Completed", time: "2h ago", type: "success" },
   ]);
 
-  const profileRef = useRef<HTMLDivElement | null>(null);
-  const notificationRef = useRef<HTMLDivElement | null>(null);
+  const profileRef = useRef(null);
+  const notificationRef = useRef(null);
 
   const handleLogout = () => {
     console.log("Logging out...");
@@ -38,8 +30,8 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
   const clearNotifications = () => setNotifications([]);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
+    const handleClickOutside = (event) => {
+      const target = event.target;
       if (profileRef.current && !profileRef.current.contains(target)) setIsProfileOpen(false);
       if (notificationRef.current && !notificationRef.current.contains(target)) setIsNotificationsOpen(false);
     };
@@ -47,7 +39,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) alert("Searching for: " + searchQuery);
   };
@@ -55,14 +47,12 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
-        <nav className="h-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 flex items-center justify-between transition-colors duration-300">
+        <nav className="h-20 glass-panel border-b border-white/20 dark:border-slate-800 px-6 flex items-center justify-between transition-all duration-300">
 
-          {/* Logo */}
           <div className="flex items-center gap-4 ml-12 md:ml-16">
             <h1 className="text-xl font-bold text-slate-800 dark:text-white">BuildShpere</h1>
           </div>
 
-          {/* Search (Desktop) */}
           <form onSubmit={handleSearch} className="hidden md:flex relative flex-1 max-w-[400px] mx-6">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
             <input
@@ -70,14 +60,12 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search anything..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl premium-input text-sm transition-all"
             />
           </form>
 
-          {/* Right Section */}
           <div className="flex items-center gap-4 md:gap-6">
 
-            {/* Dark Mode */}
             <button
               onClick={() => setIsDarkMode(!isDarkMode)}
               className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-all active:scale-95"
@@ -85,7 +73,6 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
-            {/* Notifications (Desktop Only) */}
             <div className="relative hidden md:block" ref={notificationRef}>
               <button
                 onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
@@ -124,7 +111,6 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
               )}
             </div>
 
-            {/* Profile */}
             <div className="relative" ref={profileRef}>
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
@@ -146,15 +132,15 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
                   <div className="px-4 py-2 mb-1">
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Account</p>
                   </div>
- <button
-  onClick={() => {
-    setIsProfileOpen(false); 
-    navigate("/settings");  
-  }}
-  className="w-full px-4 py-2 flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
->
-  <User size={18} /> My Profile
-</button>
+                  <button
+                    onClick={() => {
+                      setIsProfileOpen(false); 
+                      navigate("/settings");  
+                    }}
+                    className="w-full px-4 py-2 flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    <User size={18} /> My Profile
+                  </button>
                   <button 
                     onClick={() => setUserStatus(userStatus === 'online' ? 'away' : 'online')}
                     className="w-full px-4 py-2 flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
@@ -176,7 +162,6 @@ const Navbar = ({ isDarkMode, setIsDarkMode }: NavbarProps) => {
         </nav>
       </header>
 
-      {/* Logout Modal */}
       {showLogoutConfirm && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowLogoutConfirm(false)} />

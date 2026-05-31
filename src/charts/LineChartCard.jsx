@@ -1,16 +1,9 @@
 import React from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import { Users } from "lucide-react";
-import type { LineChartData } from "../data/mockData";
 
-interface LineChartCardProps {
-  title: string;
-  data: LineChartData[];
-  dataKey: keyof LineChartData;
-}
-
-export const LineChartCard: React.FC<LineChartCardProps> = ({ title, data, dataKey }) => (
-  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
+export const LineChartCard = ({ title, data, dataKey }) => (
+  <div className="glass-card rounded-2xl p-6">
     <div className="flex items-center gap-2 mb-4">
       <Users className="w-5 h-5 text-blue-500" />
       <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">{title}</h2>

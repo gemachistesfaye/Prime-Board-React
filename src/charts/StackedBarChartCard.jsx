@@ -1,15 +1,9 @@
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from "recharts";
 import { BarChart3 } from "lucide-react";
-import type { StackedBar } from "../data/mockData";
 
-interface StackedBarChartCardProps {
-  title: string;
-  data: StackedBar[];
-}
-
-export const StackedBarChartCard: React.FC<StackedBarChartCardProps> = ({ title, data }) => (
-  <div className="chart-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
+export const StackedBarChartCard = ({ title, data }) => (
+  <div className="chart-card glass-card rounded-2xl p-6">
     <div className="flex items-center gap-2 mb-4">
       <BarChart3 className="w-5 h-5 text-indigo-500" />
       <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">{title}</h2>

@@ -1,5 +1,3 @@
-import type { LineChartData } from "./mockData";
-
 export const revenueData = [
   { month: "Jan", revenue: 4000 },
   { month: "Feb", revenue: 6000 },
@@ -22,7 +20,7 @@ export const trafficData = [
   { name: "Tablet", value: 200 },
 ];
 
-export const analyticsLineData: LineChartData[] = [
+export const analyticsLineData = [
   { month: "Jan", users: 10 },
   { month: "Feb", users: 15 },
   { month: "Mar", users: 12 },

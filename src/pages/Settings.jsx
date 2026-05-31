@@ -1,49 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  User, 
-  Lock, 
-  Settings, 
-  Activity, 
-  Wrench, 
-  Globe, 
-  ShieldCheck, 
-  LogOut, 
-  Trash2, 
-  Download, 
-  Copy, 
-  Camera,
-  CheckCircle2,
-  AlertCircle,
-  Loader2,
+  User, Lock, Settings, Activity, Wrench, Globe, ShieldCheck, LogOut, Trash2, 
+  Download, Copy, Camera, CheckCircle2, AlertCircle, Loader2
 } from 'lucide-react';
 
 import { Layout } from "../components/Layout/Layout";
 
-// --- Types ---
-
-interface UserProfile {
-  name: string;
-  email: string;
-  role: string;
-  avatar: string;
-  id: string;
-}
-
-interface NotificationSettings {
-  email: boolean;
-  push: boolean;
-  marketing: boolean;
-}
-
-// --- Components ---
-
-const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div className={`bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm transition-all duration-200 ${className}`}>
+const Card = ({ children, className = "" }) => (
+  <div className={`glass-card rounded-2xl ${className}`}>
     {children}
   </div>
 );
 
-const CardHeader = ({ icon: Icon, title, description }: { icon: any; title: string; description: string }) => (
+const CardHeader = ({ icon: Icon, title, description }) => (
   <div className="flex items-start gap-4 p-6 border-b border-slate-100 dark:border-slate-700/50">
     <div className="p-2.5 bg-slate-50 dark:bg-slate-700/50 rounded-xl text-slate-600 dark:text-slate-300">
       <Icon size={22} />
@@ -55,7 +24,7 @@ const CardHeader = ({ icon: Icon, title, description }: { icon: any; title: stri
   </div>
 );
 
-const InputGroup = ({ label, type = "text", placeholder, value, onChange }: any) => (
+const InputGroup = ({ label, type = "text", placeholder, value, onChange }) => (
   <div className="space-y-1.5">
     <label className="text-sm font-medium text-slate-700 dark:text-slate-300 ml-1">{label}</label>
     <input
@@ -63,12 +32,12 @@ const InputGroup = ({ label, type = "text", placeholder, value, onChange }: any)
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+      className="w-full px-4 py-2.5 rounded-xl premium-input"
     />
   </div>
 );
 
-const Toggle = ({ enabled, onChange, label }: { enabled: boolean; onChange: () => void; label: string }) => (
+const Toggle = ({ enabled, onChange, label }) => (
   <div className="flex items-center justify-between py-3">
     <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
     <button
@@ -86,13 +55,11 @@ const Toggle = ({ enabled, onChange, label }: { enabled: boolean; onChange: () =
   </div>
 );
 
-// --- Main App Component ---
-
 export default function App() {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [profile, setProfile] = useState<UserProfile>({
+  const [profile, setProfile] = useState({
     name: "Alex Johnson",
     email: "alex.j@university.edu",
     role: "Undergraduate Student",
@@ -101,13 +68,13 @@ export default function App() {
   });
   
   const [passwords, setPasswords] = useState({ current: "", new: "", confirm: "" });
-  const [notifications, setNotifications] = useState<NotificationSettings>({
+  const [notifications, setNotifications] = useState({
     email: true,
     push: false,
     marketing: false
   });
 
-  const [feedback, setFeedback] = useState<{msg: string, type: 'success' | 'error'} | null>(null);
+  const [feedback, setFeedback] = useState(null);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -117,12 +84,11 @@ export default function App() {
     }
   }, [isDarkMode]);
 
-  const showFeedback = (msg: string, type: 'success' | 'error' = 'success') => {
+  const showFeedback = (msg, type = 'success') => {
     setFeedback({ msg, type });
     setTimeout(() => setFeedback(null), 3000);
   };
 
-  // 1. Copy User ID logic
   const handleCopyId = () => {
     const textArea = document.createElement("textarea");
     textArea.value = profile.id;
@@ -137,7 +103,6 @@ export default function App() {
     document.body.removeChild(textArea);
   };
 
-  // 2. Export Data logic
   const handleExportData = () => {
     const dataStr = JSON.stringify({ profile, notifications, timestamp: new Date().toISOString() }, null, 2);
     const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
@@ -150,7 +115,6 @@ export default function App() {
     showFeedback("Data exported as JSON");
   };
 
-  // 3. Update Password logic
   const handleUpdatePassword = () => {
     if (!passwords.current || !passwords.new) {
       showFeedback("Please fill in all password fields", "error");
@@ -162,7 +126,6 @@ export default function App() {
     }
     
     setIsLoading(true);
-    // Mock API Call
     setTimeout(() => {
       setIsLoading(false);
       setPasswords({ current: "", new: "", confirm: "" });
@@ -170,7 +133,6 @@ export default function App() {
     }, 1500);
   };
 
-  // 4. Sign Out logic
   const handleSignOut = () => {
     if (window.confirm("Are you sure you want to sign out of all devices?")) {
       showFeedback("Signing out...");
@@ -178,7 +140,6 @@ export default function App() {
     }
   };
 
-  // 5. Delete Account logic
   const handleDeleteAccount = () => {
     const confirmation = window.prompt("To delete your account, type your User ID: " + profile.id);
     if (confirmation === profile.id) {
@@ -188,15 +149,14 @@ export default function App() {
     }
   };
 
-  // 6. Handle Image Upload from local
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event) => {
     const file = event.target.files?.[0];
     if (file) {
-      if (file.size > 2 * 1024 * 1024) { // 2MB Limit
+      if (file.size > 2 * 1024 * 1024) { 
         showFeedback("File is too large (max 2MB)", "error");
         return;
       }
@@ -205,7 +165,7 @@ export default function App() {
       reader.onloadend = () => {
         setProfile(prev => ({
           ...prev,
-          avatar: reader.result as string
+          avatar: reader.result
         }));
         showFeedback("Profile picture updated!");
       };
@@ -215,17 +175,14 @@ export default function App() {
 
   return (
      <Layout> 
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-200 p-4 md:p-8 transition-colors duration-300">
+    <div className="min-h-screen bg-transparent text-slate-900 dark:text-slate-200 p-4 md:p-8 transition-colors duration-300">
       <div className="max-w-6xl mx-auto space-y-8">
-        
-        {/* Header Section */}
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Account Settings</h1>
             <p className="text-slate-500 dark:text-slate-400 mt-1">Manage your profile, security and preferences</p>
           </div>
           <div className="flex items-center gap-3">
-         
             <button 
               onClick={() => showFeedback("All changes saved locally")}
               className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow-md shadow-blue-500/20 transition-all active:scale-95"
@@ -235,7 +192,6 @@ export default function App() {
           </div>
         </header>
 
-        {/* Feedback Toast */}
         {feedback && (
           <div className={`fixed top-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg border animate-in fade-in slide-in-from-top-4 duration-300 ${
             feedback.type === 'success' ? 'bg-emerald-50 border-emerald-200 text-emerald-700 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400' : 'bg-red-50 border-red-200 text-red-700 dark:bg-red-500/10 dark:border-red-500/20 dark:text-red-400'
@@ -245,10 +201,7 @@ export default function App() {
           </div>
         )}
 
-        {/* Settings Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          {/* 1. Profile Card */}
           <Card className="lg:col-span-2">
             <CardHeader 
               icon={User} 
@@ -263,7 +216,6 @@ export default function App() {
                     alt="Avatar" 
                     className="w-24 h-24 rounded-2xl object-cover ring-4 ring-white dark:ring-slate-800 shadow-md transition-opacity group-hover:opacity-90"
                   />
-                  {/* Hidden File Input */}
                   <input 
                     type="file" 
                     ref={fileInputRef} 
@@ -290,13 +242,13 @@ export default function App() {
                 <InputGroup 
                   label="Full Name" 
                   value={profile.name} 
-                  onChange={(e: any) => setProfile({...profile, name: e.target.value})} 
+                  onChange={(e) => setProfile({...profile, name: e.target.value})} 
                 />
                 <InputGroup 
                   label="Email Address" 
                   type="email" 
                   value={profile.email} 
-                  onChange={(e: any) => setProfile({...profile, email: e.target.value})} 
+                  onChange={(e) => setProfile({...profile, email: e.target.value})} 
                 />
               </div>
 
@@ -314,7 +266,6 @@ export default function App() {
             </div>
           </Card>
 
-          {/* 2. Preferences Card */}
           <Card className="lg:col-span-1">
             <CardHeader 
               icon={Settings} 
@@ -355,7 +306,6 @@ export default function App() {
             </div>
           </Card>
 
-          {/* 3. Password & Security */}
           <Card className="lg:col-span-2">
             <CardHeader 
               icon={Lock} 
@@ -369,21 +319,21 @@ export default function App() {
                   type="password" 
                   placeholder="••••••••" 
                   value={passwords.current}
-                  onChange={(e: any) => setPasswords({...passwords, current: e.target.value})}
+                  onChange={(e) => setPasswords({...passwords, current: e.target.value})}
                 />
                 <InputGroup 
                   label="New Password" 
                   type="password" 
                   placeholder="••••••••" 
                   value={passwords.new}
-                  onChange={(e: any) => setPasswords({...passwords, new: e.target.value})}
+                  onChange={(e) => setPasswords({...passwords, new: e.target.value})}
                 />
                 <InputGroup 
                   label="Confirm New Password" 
                   type="password" 
                   placeholder="••••••••" 
                   value={passwords.confirm}
-                  onChange={(e: any) => setPasswords({...passwords, confirm: e.target.value})}
+                  onChange={(e) => setPasswords({...passwords, confirm: e.target.value})}
                 />
                 <button 
                   onClick={handleUpdatePassword}
@@ -409,7 +359,6 @@ export default function App() {
             </div>
           </Card>
 
-          {/* 4. Utilities Card */}
           <Card className="lg:col-span-1">
             <CardHeader 
               icon={Wrench} 
@@ -458,8 +407,6 @@ export default function App() {
           </Card>
 
         </div>
-
-        {/* Footer Info */}
         <footer className="text-center py-8">
           <p className="text-xs text-slate-400 dark:text-slate-500">
             Last updated: Oct 24, 2023 • Version 2.4.1 (Stable)
@@ -470,4 +417,3 @@ export default function App() {
     </Layout>
   );
 }
-

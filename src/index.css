@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased text-slate-800 transition-colors duration-300;
+  }
+  
+  :root:not(.dark) body {
+    background-color: #f8fafc;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(217,100%,95%,0.8) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(250,100%,95%,0.6) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(280,100%,95%,0.5) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(190,100%,93%,0.7) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  :root.dark body {
+    @apply bg-slate-950;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/60 backdrop-blur-xl border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)];
+  }
+  .dark .glass-panel {
+    @apply bg-slate-900/60 backdrop-blur-xl border-slate-800/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)];
+  }
+  
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-300;
+  }
+  .dark .glass-card {
+    @apply bg-slate-800/80 border-slate-700/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.15)];
+  }
+
+  .premium-input {
+    @apply bg-white/50 border border-slate-200/60 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all placeholder:text-slate-400;
+  }
+  .dark .premium-input {
+    @apply bg-slate-900/50 border-slate-700/50 focus:bg-slate-900 focus:border-blue-500 text-white placeholder:text-slate-500;
+  }
+}

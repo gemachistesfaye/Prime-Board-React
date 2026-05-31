@@ -9,15 +9,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-interface BarChartCardProps {
-  title: string;
-  dataKey: string; 
-  data: { [key: string]: number | string }[];
-}
-
-const BarChartCard: React.FC<BarChartCardProps> = ({ title, dataKey, data }) => {
+const BarChartCard = ({ title, dataKey, data }) => {
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+    <div className="glass-card rounded-2xl p-4">
       <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-3">{title}</h2>
       <ResponsiveContainer width="100%" height={250}>
         <BarChart data={data}>

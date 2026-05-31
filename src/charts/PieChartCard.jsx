@@ -1,5 +1,4 @@
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import type { PieLabelRenderProps } from "recharts";
 
 const data = [
   { name: "Students", value: 400 },
@@ -11,7 +10,7 @@ const data = [
 const COLORS = ["#6366f1", "#22c55e", "#f59e0b", "#ec4899"];
 const RADIAN = Math.PI / 180;
 
-const renderCustomizedLabel = (props: PieLabelRenderProps) => {
+const renderCustomizedLabel = (props) => {
   const cx = Number(props.cx ?? 0);
   const cy = Number(props.cy ?? 0);
   const midAngle = Number(props.midAngle ?? 0);
@@ -32,7 +31,7 @@ const renderCustomizedLabel = (props: PieLabelRenderProps) => {
 
 export default function PieChartCard() {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow">
+    <div className="glass-card rounded-2xl p-5">
       <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Distribution</h2>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>

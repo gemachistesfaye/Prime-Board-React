@@ -1,40 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Wrench, 
-  Terminal, 
-  Database, 
-  Code, 
-  Activity, 
-  Send, 
-  Copy, 
-  Trash2, 
-  Clock, 
-  Fingerprint, 
-  AlertCircle
+  Wrench, Terminal, Database, Code, Activity, Send, Copy, Trash2, 
+  Clock, Fingerprint, AlertCircle
 } from 'lucide-react';
 
 import { Layout } from "../components/Layout/Layout";
 
-
-
-type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
-
-interface LogEntry {
-  id: string;
-  timestamp: string;
-  level: 'info' | 'warn' | 'error' | 'success';
-  message: string;
-}
-
-
-
-const Card = ({ children, title, icon: Icon, description }: { 
-  children: React.ReactNode, 
-  title: string, 
-  icon: any,
-  description?: string 
-}) => (
-  <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+const Card = ({ children, title, icon: Icon, description }) => (
+  <div className="glass-card rounded-2xl overflow-hidden flex flex-col">
     <div className="p-5 border-b border-slate-100 dark:border-slate-700/50 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div className="p-2 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-600 dark:text-slate-300">
@@ -52,7 +25,7 @@ const Card = ({ children, title, icon: Icon, description }: {
   </div>
 );
 
-const Button = ({ children, onClick, variant = 'primary', className = '', icon: Icon }: any) => {
+const Button = ({ children, onClick, variant = 'primary', className = '', icon: Icon }) => {
   const variants = {
     primary: 'bg-indigo-600 hover:bg-indigo-700 text-white',
     secondary: 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-900 dark:text-slate-100',
@@ -62,7 +35,7 @@ const Button = ({ children, onClick, variant = 'primary', className = '', icon: 
   return (
     <button 
       onClick={onClick}
-      className={`px-4 py-2 rounded-xl font-medium transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50 ${variants[variant as keyof typeof variants]} ${className}`}
+      className={`px-4 py-2 rounded-xl font-medium transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50 ${variants[variant]} ${className}`}
     >
       {Icon && <Icon size={16} />}
       {children}
@@ -70,29 +43,22 @@ const Button = ({ children, onClick, variant = 'primary', className = '', icon: 
   );
 };
 
-// --- Main Page Component ---
-
 export default function App() {
-  // State for API Tester
   const [apiUrl, setApiUrl] = useState('https://jsonplaceholder.typicode.com/todos/1');
-  const [method, setMethod] = useState<RequestMethod>('GET');
-  const [apiResponse, setApiResponse] = useState<any>(null);
+  const [method, setMethod] = useState('GET');
+  const [apiResponse, setApiResponse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // State for JSON Viewer
   const [jsonInput, setJsonInput] = useState('{"name": "Developer", "role": "Fullstack", "tools": ["React", "TypeScript", "Tailwind"]}');
-  const [jsonError, setJsonError] = useState<string | null>(null);
+  const [jsonError, setJsonError] = useState(null);
 
-  // State for Log Monitor
-  const [logs, setLogs] = useState<LogEntry[]>([]);
-  const logEndRef = useRef<HTMLDivElement>(null);
+  const [logs, setLogs] = useState([]);
+  const logEndRef = useRef(null);
 
-  // State for Utilities
   const [copied, setCopied] = useState(false);
 
-  // Utility Actions
-  const addLog = (message: string, level: LogEntry['level'] = 'info') => {
-    const newLog: LogEntry = {
+  const addLog = (message, level = 'info') => {
+    const newLog = {
       id: Math.random().toString(36).substr(2, 9),
       timestamp: new Date().toLocaleTimeString(),
       level,
@@ -103,18 +69,17 @@ export default function App() {
 
   const isFirstLoad = useRef(true);
 
-useEffect(() => {
-  if (isFirstLoad.current) {
-    isFirstLoad.current = false;
-    return; 
-  }
+  useEffect(() => {
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false;
+      return; 
+    }
+    logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [logs]);
 
-  logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-}, [logs]);
-
-useEffect(() => {
-  window.scrollTo(0, 0);
-}, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleRunApi = async () => {
     setIsLoading(true);
@@ -124,7 +89,7 @@ useEffect(() => {
       const data = await response.json();
       setApiResponse(data);
       addLog(`Request successful: ${response.status} ${response.statusText}`, 'success');
-    } catch (err: any) {
+    } catch (err) {
       setApiResponse({ error: err.message });
       addLog(`Request failed: ${err.message}`, 'error');
     } finally {
@@ -138,7 +103,7 @@ useEffect(() => {
       setJsonInput(JSON.stringify(parsed, null, 2));
       setJsonError(null);
       addLog('JSON formatted successfully', 'success');
-    } catch (err: any) {
+    } catch (err) {
       setJsonError(err.message);
       addLog('JSON formatting failed', 'error');
     }
@@ -154,11 +119,9 @@ useEffect(() => {
 
   return (
 <Layout>
-    
     <div className=" bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-200 font-sans selection:bg-indigo-100 dark:selection:bg-indigo-500/30">
       <div className="max-w-7xl mx-auto px-4 py-10 md:px-8">
         
-        {/* Header */}
         <header className="mb-10">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-3 bg-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-200 dark:shadow-none">
@@ -171,17 +134,14 @@ useEffect(() => {
           </div>
         </header>
 
-        {/* Toolkit Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          
-          {/* 1. API Tester */}
           <div className="xl:col-span-2">
             <Card title="API Tester" icon={Activity} description="Test REST endpoints quickly">
               <div className="space-y-4">
                 <div className="flex flex-col md:flex-row gap-3">
                   <select 
                     value={method}
-                    onChange={(e) => setMethod(e.target.value as RequestMethod)}
+                    onChange={(e) => setMethod(e.target.value)}
                     className="md:w-32 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 border-none text-sm font-semibold focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer"
                   >
                     <option>GET</option>
@@ -214,7 +174,6 @@ useEffect(() => {
             </Card>
           </div>
 
-          {/* 2. Quick Utilities */}
           <Card title="Quick Utilities" icon={Database} description="One-click helpers">
             <div className="grid grid-cols-1 gap-3">
               <Button variant="outline" icon={Fingerprint} className="justify-start text-left h-14" onClick={generateUUID}>
@@ -241,7 +200,6 @@ useEffect(() => {
             </div>
           </Card>
 
-          {/* 3. JSON Viewer */}
           <Card title="JSON Viewer" icon={Code} description="Validate and prettify objects">
             <div className="space-y-4">
               <div className="relative">
@@ -268,7 +226,6 @@ useEffect(() => {
             </div>
           </Card>
 
-          {/* 4. Log Monitor */}
           <div className="xl:col-span-2">
             <Card title="Log Monitor" icon={Terminal} description="Real-time session events">
               <div className="bg-slate-900 rounded-xl overflow-hidden border border-slate-800">
@@ -311,7 +268,6 @@ useEffect(() => {
 
         </div>
 
-        {/* Footer Info */}
         <footer className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 text-center">
           <p className="text-slate-500 dark:text-slate-500 text-xs">
             Built with React & Tailwind CSS • Dashboard Theme V2.4

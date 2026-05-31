@@ -33,7 +33,6 @@ export const Sidebar = () => {
 
   return (
     <>
-      {/* Mobile toggle button */}
       <button
         className="md:hidden fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-colors"
         onClick={toggleSidebar}
@@ -42,17 +41,15 @@ export const Sidebar = () => {
         {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
-      {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 h-full z-50 w-64 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-200
-          flex flex-col p-6 border-r border-slate-200 dark:border-slate-800 shadow-sm
+          fixed top-0 left-0 h-full z-50 w-64 glass-panel text-slate-700 dark:text-slate-200
+          flex flex-col p-6 border-r border-white/30 dark:border-slate-800 shadow-[4px_0_24px_rgb(0,0,0,0.02)]
           transform transition-transform duration-300
           ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
           md:translate-x-0
         `}
       >
-        {/* Brand Logo */}
         <div className="flex items-center gap-3 text-2xl font-black mb-10 tracking-tight text-slate-900 dark:text-white cursor-default">
           <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30">
             <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-current">
@@ -62,7 +59,6 @@ export const Sidebar = () => {
           <span>BuildSphere</span>
         </div>
 
-        {/* Navigation */}
         <nav className="flex flex-col gap-1.5 flex-grow">
           {navItems.map((item) => (
             <div key={item.name}>
@@ -81,7 +77,6 @@ export const Sidebar = () => {
                 <span>{item.name}</span>
               </NavLink>
 
-              {/* Nested children */}
               {item.children && (
                 <div className="ml-6 flex flex-col gap-1 mt-1">
                   {item.children.map((child) => (
@@ -103,7 +98,6 @@ export const Sidebar = () => {
           ))}
         </nav>
 
-        {/* Footer */}
         <div className="mt-auto pt-6 flex flex-col gap-4">
           <div className="h-px bg-slate-200 dark:bg-slate-700 w-full" />
           <NavLink
@@ -117,7 +111,6 @@ export const Sidebar = () => {
         </div>
       </aside>
 
-      {/* Mobile overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/25 z-40 md:hidden"

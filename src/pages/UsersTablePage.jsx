@@ -2,11 +2,7 @@ import Table from "../components/Table/Table";
 import { users } from "../data/mockData";
 import { Layout } from "../components/Layout/Layout";
 
-interface UsersProps {
-  isDarkMode?: boolean;
-}
-
-const Users = ({ isDarkMode }: UsersProps) => {
+const Users = ({ isDarkMode }) => {
   const columns = ["ID", "Name", "Email", "Status", "Role"];
 
   return (
@@ -16,7 +12,7 @@ const Users = ({ isDarkMode }: UsersProps) => {
           Ethiopian Users Table
         </h1>
 
-        <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+        <div className="glass-card p-4">
           <Table columns={columns} data={users} />
         </div>
       </div>

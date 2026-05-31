@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { StatCard } from "../components/dashboard/StatCard";
+import StatCard from "../components/dashboard/StatCard";
 import AIInsightsCard from "../components/dashboard/AIInsightsCard";
 import { dashboardStats } from "../data/dashboardData";
 import { Calendar, Download } from "lucide-react";

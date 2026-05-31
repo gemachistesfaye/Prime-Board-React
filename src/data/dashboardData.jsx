@@ -1,17 +1,6 @@
 import { Users, ShoppingCart, DollarSign, Activity } from "lucide-react";
-import type { ReactNode } from "react";
 
-export interface DashboardStat {
-  id: string;
-  title: string;
-  value: string | number;
-  change: string;
-  icon: ReactNode;
-  period?: string;
-  data?: number[];
-}
-
-export const dashboardStats: DashboardStat[] = [
+export const dashboardStats = [
   {
     id: "stat-1",
     title: "Total Users",

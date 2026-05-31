@@ -1,15 +1,6 @@
 import { useState } from "react";
 
-interface Student {
-  id: string;
-  name: string;
-  email: string;
-  status: string;
-  coarse: string;
-  joined: string;
-}
-
-const initialStudents: Student[] = [
+const initialStudents = [
   { id: "1", name: "Alice Johnson", email: "alice@example.com", status: "Active", coarse: "Computer Science", joined: "2024-01-15" },
   { id: "2", name: "Bob Smith", email: "bob@example.com", status: "Inactive", coarse: "Mathematics", joined: "2024-02-20" },
   { id: "3", name: "Carol White", email: "carol@example.com", status: "Active", coarse: "Physics", joined: "2024-03-10" },
@@ -17,19 +8,19 @@ const initialStudents: Student[] = [
 ];
 
 export default function Students() {
-  const [students, setStudents] = useState<Student[]>(initialStudents);
+  const [students, setStudents] = useState(initialStudents);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editId, setEditId] = useState<string | null>(null);
-  const [editStudent, setEditStudent] = useState<Student | null>(null);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [editId, setEditId] = useState(null);
+  const [editStudent, setEditStudent] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [deleteId, setDeleteId] = useState(null);
 
-  const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAdd = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const newStudent: Student = {
+    const newStudent = {
       id: Date.now().toString(),
       name: String(data.get("name") ?? ""),
       email: String(data.get("email") ?? ""),
@@ -42,24 +33,19 @@ export default function Students() {
     form.reset();
   };
 
-  const handleEditOpen = (student: Student) => {
+  const handleEditOpen = (student) => {
     setEditId(student.id);
     setEditStudent(student);
   };
 
-  const handleEditSave = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEditSave = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
     setStudents((prev) =>
       prev.map((s) =>
         s.id === editId
-          ? {
-              ...s,
-              name: String(data.get("name") ?? ""),
-              email: String(data.get("email") ?? ""),
-              coarse: String(data.get("coarse") ?? ""),
-            }
+          ? { ...s, name: String(data.get("name") ?? ""), email: String(data.get("email") ?? ""), coarse: String(data.get("coarse") ?? "") }
           : s
       )
     );
@@ -84,68 +70,29 @@ export default function Students() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Students</h1>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="px-4 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition"
-        >
-          + Add Student
-        </button>
+        <button onClick={() => setShowAddModal(true)} className="px-4 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">+ Add Student</button>
       </div>
 
-      <input
-        type="text"
-        placeholder="Search students..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="mb-4 w-full max-w-sm px-4 py-2 border rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-      />
+      <input type="text" placeholder="Search students..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="mb-4 w-full max-w-sm px-4 py-2 border rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white" />
 
-      <div className="overflow-x-auto rounded-2xl shadow">
+      <div className="overflow-x-auto glass-card">
         <table className="w-full text-sm text-left">
-          <thead className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs">
-            <tr>
-              <th className="px-4 py-3">Name</th>
-              <th className="px-4 py-3">Email</th>
-              <th className="px-4 py-3">Course</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Joined</th>
-              <th className="px-4 py-3">Actions</th>
-            </tr>
+          <thead className="bg-slate-100/50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs">
+            <tr><th className="px-4 py-3">Name</th><th className="px-4 py-3">Email</th><th className="px-4 py-3">Course</th><th className="px-4 py-3">Status</th><th className="px-4 py-3">Joined</th><th className="px-4 py-3">Actions</th></tr>
           </thead>
           <tbody>
             {filtered.map((student) => (
-              <tr
-                key={student.id}
-                className="border-b dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
-              >
+              <tr key={student.id} className="border-b dark:border-gray-700 bg-white/40 dark:bg-gray-800 hover:bg-white/60 dark:hover:bg-gray-700 transition-colors">
                 <td className="px-4 py-3 font-medium text-gray-800 dark:text-white">{student.name}</td>
                 <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{student.email}</td>
                 <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{student.coarse}</td>
                 <td className="px-4 py-3">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                      student.status === "Active"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    {student.status}
-                  </span>
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${student.status === "Active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>{student.status}</span>
                 </td>
                 <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{student.joined}</td>
                 <td className="px-4 py-3 flex gap-2">
-                  <button
-                    onClick={() => { handleEditOpen(student); setShowEditModal(true); }}
-                    className="text-indigo-600 hover:underline text-xs"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => setDeleteId(student.id)}
-                    className="text-red-500 hover:underline text-xs"
-                  >
-                    Delete
-                  </button>
+                  <button onClick={() => { handleEditOpen(student); setShowEditModal(true); }} className="text-indigo-600 hover:underline text-xs">Edit</button>
+                  <button onClick={() => setDeleteId(student.id)} className="text-red-500 hover:underline text-xs">Delete</button>
                 </td>
               </tr>
             ))}
