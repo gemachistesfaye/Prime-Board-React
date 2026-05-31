@@ -9,38 +9,23 @@ const data = [
 ];
 
 const COLORS = ["#6366f1", "#22c55e", "#f59e0b", "#ec4899"];
-
 const RADIAN = Math.PI / 180;
 
-const renderCustomizedLabel = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-}: PieLabelRenderProps) => {
-  const cxNum = Number(cx ?? 0);
-  const cyNum = Number(cy ?? 0);
-  const midAngleNum = Number(midAngle ?? 0);
-  const innerRadiusNum = Number(innerRadius ?? 0);
-  const outerRadiusNum = Number(outerRadius ?? 0);
-  const percentNum = Number(percent ?? 0);
+const renderCustomizedLabel = (props: PieLabelRenderProps) => {
+  const cx = Number(props.cx ?? 0);
+  const cy = Number(props.cy ?? 0);
+  const midAngle = Number(props.midAngle ?? 0);
+  const innerRadius = Number(props.innerRadius ?? 0);
+  const outerRadius = Number(props.outerRadius ?? 0);
+  const percent = Number(props.percent ?? 0);
 
-  const radius = innerRadiusNum + (outerRadiusNum - innerRadiusNum) * 0.5;
-  const x = cxNum + radius * Math.cos(-midAngleNum * RADIAN);
-  const y = cyNum + radius * Math.sin(-midAngleNum * RADIAN);
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor="middle"
-      dominantBaseline="central"
-      fontSize={12}
-    >
-      {`${(percentNum * 100).toFixed(0)}%`}
+    <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={12}>
+      {`${(percent * 100).toFixed(0)}%`}
     </text>
   );
 };
@@ -48,9 +33,7 @@ const renderCustomizedLabel = ({
 export default function PieChartCard() {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow">
-      <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
-        Distribution
-      </h2>
+      <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Distribution</h2>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
