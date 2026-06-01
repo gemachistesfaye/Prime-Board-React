@@ -46,7 +46,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50">
+      <header className="fixed top-0 left-0 right-0 z-50 md:left-64">
         <nav className="h-20 glass-panel border-b border-slate-200 dark:border-slate-800 px-6 flex items-center justify-between transition-all duration-300">
 
           <div className="flex items-center gap-3 ml-12 md:hidden">

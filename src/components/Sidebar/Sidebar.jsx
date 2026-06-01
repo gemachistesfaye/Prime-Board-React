@@ -44,8 +44,8 @@ export const Sidebar = () => {
 
       <aside
         className={`
-          fixed top-0 left-0 h-full z-50 w-64 glass-panel text-slate-700 dark:text-slate-200
-          flex flex-col p-6 pt-24 border-r border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none
+          fixed top-0 left-0 h-full z-[60] w-64 glass-panel text-slate-700 dark:text-slate-200
+          flex flex-col p-6 border-r border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none
           transform transition-transform duration-300
           ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
           md:translate-x-0
