@@ -4,6 +4,7 @@ import {
   GraduationCap, Download, AlertTriangle, MoreVertical, UserCheck, UserX, FileText, BookOpen
 } from 'lucide-react';
 import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const initialStudents = [
   { id: "1", name: "Alice Johnson", email: "alice@example.com", status: "Active", coarse: "Computer Science", joined: "2024-01-15", gpa: 3.8, tuition: "Paid" },
@@ -38,45 +39,66 @@ export default function Students() {
       { name: "Elective Seminar", grade: "A" }
     ];
     
-    const transcriptText = `
-=========================================
-      OFFICIAL ACADEMIC TRANSCRIPT
-=========================================
-Institution: Prime Board University
-Date: ${new Date().toLocaleDateString()}
-
-STUDENT PROFILE
------------------------------------------
-Name:    ${student.name}
-ID:      STU-${student.id.padStart(5, '0')}
-Email:   ${student.email}
-Course:  ${student.coarse}
-Status:  ${student.status}
-
-ACADEMIC PERFORMANCE
------------------------------------------
-Cumulative GPA: ${student.gpa.toFixed(1)}
-
-COURSEWORK:
-- ${subjects[0].name}: ${subjects[0].grade}
-- ${subjects[1].name}: ${subjects[1].grade}
-- ${subjects[2].name}: ${subjects[2].grade}
-
-FINANCIAL STATUS
------------------------------------------
-Tuition: ${student.tuition}
-
-=========================================
-   *** END OF OFFICIAL TRANSCRIPT ***
-=========================================
-`;
-
-    const pdf = new jsPDF();
-    pdf.setFontSize(12);
-    const lines = pdf.splitTextToSize(transcriptText, 180);
-    pdf.text(lines, 10, 10);
-    pdf.save(`${student.name.replace(/\s+/g, '_')}_Transcript.pdf`);
+    const doc = new jsPDF();
     
+    // Header
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor(30, 58, 138); // Blue-900
+    doc.text("Prime Board University", 14, 22);
+    
+    doc.setFontSize(12);
+    doc.setTextColor(100, 116, 139); // Slate-500
+    doc.text("OFFICIAL ACADEMIC TRANSCRIPT", 14, 30);
+    
+    // Separator line
+    doc.setDrawColor(226, 232, 240); // Slate-200
+    doc.line(14, 35, 196, 35);
+    
+    // Student Info
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(15, 23, 42); // Slate-900
+    
+    doc.text(`Student Name: ${student.name}`, 14, 45);
+    doc.text(`Student ID: STU-${student.id.padStart(5, '0')}`, 14, 52);
+    doc.text(`Email Address: ${student.email}`, 14, 59);
+    doc.text(`Enrolled Course: ${student.coarse}`, 105, 45);
+    doc.text(`Current Status: ${student.status}`, 105, 52);
+    doc.text(`Date Issued: ${new Date().toLocaleDateString()}`, 105, 59);
+
+    // Academic Performance Section
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(30, 58, 138);
+    doc.text("ACADEMIC PERFORMANCE", 14, 75);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(15, 23, 42);
+    doc.text(`Cumulative GPA: ${student.gpa.toFixed(1)}`, 14, 82);
+    doc.text(`Tuition Status: ${student.tuition}`, 105, 82);
+
+    // Coursework Table
+    autoTable(doc, {
+      startY: 90,
+      head: [['Course Name', 'Credits', 'Grade']],
+      body: subjects.map(sub => [sub.name, '3.0', sub.grade]),
+      theme: 'grid',
+      headStyles: { fillColor: [30, 58, 138], textColor: 255 },
+      styles: { font: 'helvetica', fontSize: 10, cellPadding: 5 },
+      alternateRowStyles: { fillColor: [248, 250, 252] },
+      margin: { top: 10 }
+    });
+    
+    // Footer
+    const pageHeight = doc.internal.pageSize.height;
+    doc.setFontSize(8);
+    doc.setTextColor(148, 163, 184); // Slate-400
+    doc.text("*** END OF OFFICIAL TRANSCRIPT ***", 105, pageHeight - 20, { align: "center" });
+    doc.text("This document is generated automatically and does not require a signature.", 105, pageHeight - 15, { align: "center" });
+    
+    doc.save(`${student.name.replace(/\s+/g, '_')}_Transcript.pdf`);
     setActiveMenuId(null);
   };
 
