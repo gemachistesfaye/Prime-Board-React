@@ -3,6 +3,7 @@ import {
   Search, Plus, Edit2, Trash2, CheckCircle2, XCircle, 
   GraduationCap, Download, AlertTriangle, MoreVertical, UserCheck, UserX, FileText, BookOpen
 } from 'lucide-react';
+import { jsPDF } from "jspdf";
 
 const initialStudents = [
   { id: "1", name: "Alice Johnson", email: "alice@example.com", status: "Active", coarse: "Computer Science", joined: "2024-01-15", gpa: 3.8, tuition: "Paid" },
@@ -14,6 +15,7 @@ const initialStudents = [
 export default function Students() {
   const [students, setStudents] = useState(initialStudents);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [printStudent, setPrintStudent] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editId, setEditId] = useState(null);
   const [editStudent, setEditStudent] = useState(null);
@@ -69,15 +71,12 @@ Tuition: ${student.tuition}
 =========================================
 `;
 
-    const blob = new Blob([transcriptText], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${student.name.replace(/\s+/g, '_')}_Transcript.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    const pdf = new jsPDF();
+    pdf.setFontSize(12);
+    const lines = pdf.splitTextToSize(transcriptText, 180);
+    pdf.text(lines, 10, 10);
+    pdf.save(`${student.name.replace(/\s+/g, '_')}_Transcript.pdf`);
+    
     setActiveMenuId(null);
   };
 

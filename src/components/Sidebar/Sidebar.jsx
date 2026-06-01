@@ -45,19 +45,19 @@ export const Sidebar = () => {
       <aside
         className={`
           fixed top-0 left-0 h-full z-50 w-64 glass-panel text-slate-700 dark:text-slate-200
-          flex flex-col p-6 border-r border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none
+          flex flex-col p-6 pt-24 border-r border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none
           transform transition-transform duration-300
           ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
           md:translate-x-0
         `}
       >
-        <div className="flex items-center gap-3 text-2xl font-black mb-10 tracking-tight text-slate-900 dark:text-white cursor-default">
+        <div className="flex items-center gap-3 text-2xl font-black mb-10 mt-4 tracking-tight text-slate-900 dark:text-white cursor-default">
           <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30">
             <Zap className="w-5 h-5 text-amber-300 fill-amber-300" />
           </div>
           <span>Prime Board</span>
         </div>
-
+<div className="flex items-center gap-3 text-2xl font-black mb-10 tracking-tight text-slate-900 dark:text-white cursor-default">  </div>
         <nav className="flex flex-col gap-1.5 flex-grow">
           {navItems.map((item) => (
             <div key={item.name}>
