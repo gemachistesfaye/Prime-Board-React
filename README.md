@@ -76,7 +76,7 @@ PrimeBoard-React/
 
 ## 🔒 Security
 
-We take security seriously! 🛡️ Please review our [Security Policy](SECURITY.md) for information on how to securely report vulnerabilities and our support guidelines.
+We take security seriously! 🛡️ Please review our [Security Policy](.github/SECURITY.md) for information on how to securely report vulnerabilities and our support guidelines.
 
 ## 📜 License
 
