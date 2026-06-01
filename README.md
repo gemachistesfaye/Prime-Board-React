@@ -1,6 +1,7 @@
-  # Prime Board
+  # PrimeBoard React Dashboard
 
-  ### Premium Academic Management Dashboard
+**Prime Board** is a high-fidelity academic management dashboard built for universities and institutions. It delivers a seamless dark-mode-first experience for managing students, generating official PDF transcripts and visualizing institutional analytics — all from a single, responsive interface.
+
 
   <p align="center">
     <a href="https://prime-board-react.vercel.app"><strong>🌐 Live Demo</strong></a> &nbsp;·&nbsp;
@@ -28,25 +29,9 @@
 
 ---
 <div align="center">
-  <img src="public/banner.png" alt="Prime Board Banner" width="100%" style="border-radius:12px; max-height:80px; object-fit:cover;" />
+  <img src="public/banner.png" alt="Prime Board Banner" width="100%" style="border-radius:12px; height:420px; object-fit:cover;" />
   <br/>
 </div>
-
-
-## Overview
-
-**Prime Board** is a high-fidelity academic management dashboard built for universities and institutions. It delivers a seamless dark-mode-first experience for managing students, generating official PDF transcripts, and visualizing institutional analytics — all from a single, responsive interface.
-
-
----
-
-## Screenshots
-
-| Dashboard | Analytics | Settings |
-|:---------:|:---------:|:--------:|
-| <img src="docs/screenshots/1-dashboard.png" width="380" alt="Main Dashboard"> | <img src="docs/screenshots/2-analytics.png" width="380" alt="Analytics Page"> | <img src="docs/screenshots/3-settings.png" width="380" alt="Settings"> |
-| Users Table | Add New Student | Toolkit |
-| <img src="docs/screenshots/4-users-table.png" width="380" alt="Students Table"> | <img src="docs/screenshots/5-add-new-student.png" width="380" alt="Add New Student"> | <img src="docs/screenshots/6-toolkit.png" width="380" alt="Toolkit"> |
 
 ---
 
@@ -77,6 +62,17 @@
 | Icons | Lucide React | 0.575+ |
 | PDF export | jsPDF + jspdf-autotable | latest |
 | State | React `useState` / `useEffect` | — |
+
+
+---
+
+## Screenshots
+
+| Dashboard | Analytics | Settings |
+|:---------:|:---------:|:--------:|
+| <img src="docs/screenshots/1-dashboard.png" width="380" alt="Main Dashboard"> | <img src="docs/screenshots/2-analytics.png" width="380" alt="Analytics Page"> | <img src="docs/screenshots/3-settings.png" width="380" alt="Settings"> |
+| Users Table | Add New Student | Toolkit |
+| <img src="docs/screenshots/4-users-table.png" width="380" alt="Students Table"> | <img src="docs/screenshots/5-add-new-student.png" width="380" alt="Add New Student"> | <img src="docs/screenshots/6-toolkit.png" width="380" alt="Toolkit"> |
 
 ---
 
@@ -163,7 +159,7 @@ Made with care by [Gemachis Tesfaye](https://github.com/gemachistesfaye)
 
 ## 📬 Contact
 
-- 📧 Email: gemachistesfaye36@gmial.com
+- 📧 Email: gemachistesfaye36@gmail.com
 - 🌐 GitHub: https://github.com/gemachistesfaye
 
 
