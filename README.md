@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/banner.png" alt="Prime Board Banner" width="100%" style="border-radius:12px; max-height:150px; object-fit:cover;" />
+  <img src="public/banner.png" alt="Prime Board Banner" width="100%" style="border-radius:12px; max-height:80px; object-fit:cover;" />
   
   <br/>
   <br/>
