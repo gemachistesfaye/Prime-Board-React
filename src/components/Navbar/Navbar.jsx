@@ -50,7 +50,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         <nav className="h-20 glass-panel border-b border-slate-200 dark:border-slate-800 px-6 flex items-center justify-between transition-all duration-300">
 
           <div className="flex items-center gap-3 ml-12 md:hidden">
-            <img src="/vite.svg" alt="Prime Board Logo" className="w-8 h-8" />
+            <img src="/prime-board-logo.png" alt="Prime Board Logo" className="w-9 h-9 rounded-md shadow-md" />
             <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-white">Prime Board</h1>
           </div>
 

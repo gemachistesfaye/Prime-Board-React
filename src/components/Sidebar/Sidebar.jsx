@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { 
-  LayoutDashboard, 
-  BarChart3, 
-  CalendarDays, 
-  GraduationCap, 
-  Briefcase, 
-  Settings, 
-  Menu, 
+import {
+  LayoutDashboard,
+  BarChart3,
+  CalendarDays,
+  GraduationCap,
+  Briefcase,
+  Settings,
+  Menu,
   X,
   Hexagon
 } from "lucide-react";
@@ -16,9 +16,9 @@ const navItems = [
   { name: "Dashboard", path: "/", icon: LayoutDashboard },
   { name: "Analytics", path: "/analytics", icon: BarChart3 },
   { name: "Booking", path: "/booking", icon: CalendarDays },
-  { 
-    name: "Students", 
-    path: "/students", 
+  {
+    name: "Students",
+    path: "/students",
     icon: GraduationCap,
     children: [
       { name: "Users Table", path: "/students/users" },
@@ -52,10 +52,10 @@ export const Sidebar = () => {
         `}
       >
         <div className="flex items-center gap-3 text-2xl font-black mt-2 tracking-tight text-slate-900 dark:text-white cursor-default">
-          <img src="/vite.svg" alt="Prime Board Logo" className="w-9 h-9" />
+          <img src="/prime-board-logo.png" alt="Prime Board Logo" className="w-10 h-10 rounded-lg shadow-lg" />
           <span>Prime Board</span>
         </div>
-        
+
         <div className="h-px bg-slate-200 dark:bg-slate-800/80 w-full mb-6 mt-6" />
         <nav className="flex flex-col gap-1.5 flex-grow">
           {navItems.map((item) => (
