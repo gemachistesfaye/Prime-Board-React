@@ -1,9 +1,3 @@
-<div align="center">
-  <img src="public/banner.png" alt="Prime Board Banner" width="100%" style="border-radius:12px; height:80px; object-fit:cover;" />
-  
-  <br/>
-  <br/>
-
   # Prime Board
 
   ### Premium Academic Management Dashboard
@@ -32,7 +26,12 @@
 
 </div>
 
----
+---<div align="center">
+  <img src="public/banner.png" alt="Prime Board Banner" width="100%" style="border-radius:12px; height:480px; object-fit:cover;" />
+  
+  <br/>
+  <br/>
+
 
 ## Overview
 
