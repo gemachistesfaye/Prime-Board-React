@@ -9,7 +9,7 @@ import {
   Settings,
   Menu,
   X,
-  Hexagon
+  Crown
 } from "lucide-react";
 
 const navItems = [
@@ -52,7 +52,9 @@ export const Sidebar = () => {
         `}
       >
         <div className="flex items-center gap-3 text-2xl font-black mt-2 tracking-tight text-slate-900 dark:text-white cursor-default">
-          <img src="/prime-board-logo.png" alt="Prime Board Logo" className="w-10 h-10 rounded-lg shadow-lg" />
+          <div className="w-9 h-9 bg-gradient-to-br from-amber-400 to-orange-500 dark:from-blue-700 dark:to-indigo-900 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/40 dark:shadow-indigo-500/40 border border-orange-500/20 dark:border-indigo-500/20 transition-colors">
+            <Crown className="w-5 h-5 text-white dark:text-amber-400 fill-white/20 dark:fill-amber-400/20 transition-colors" />
+          </div>
           <span>Prime Board</span>
         </div>
 
