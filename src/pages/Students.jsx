@@ -165,6 +165,61 @@ export default function Students() {
     setEditStudent(null);
   };
 
+  const handleExportList = () => {
+    const doc = new jsPDF('landscape');
+    
+    // Header
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor(30, 58, 138); // Blue-900
+    doc.text("Prime Board University", 14, 22);
+    
+    doc.setFontSize(12);
+    doc.setTextColor(100, 116, 139); // Slate-500
+    doc.text("ACADEMIC ENROLLMENT REPORT", 14, 30);
+    
+    // Separator line
+    doc.setDrawColor(226, 232, 240); // Slate-200
+    doc.line(14, 35, 283, 35);
+    
+    // Summary Stats
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(15, 23, 42); // Slate-900
+    
+    doc.text(`Total Enrolled: ${stats.total}`, 14, 45);
+    doc.text(`Average GPA: ${stats.avgGpa}`, 100, 45);
+    doc.text(`Pending Tuition: ${stats.pendingTuition}`, 180, 45);
+    doc.text(`Date Exported: ${new Date().toLocaleDateString()}`, 240, 45);
+
+    // Export Table
+    autoTable(doc, {
+      startY: 55,
+      head: [['Student ID', 'Full Name', 'Email Address', 'Enrolled Course', 'GPA', 'Tuition', 'Status']],
+      body: students.map(s => [
+        `STU-${s.id.padStart(5, '0')}`,
+        s.name,
+        s.email,
+        s.coarse,
+        s.gpa.toFixed(1),
+        s.tuition,
+        s.status.toUpperCase()
+      ]),
+      theme: 'grid',
+      headStyles: { fillColor: [30, 58, 138], textColor: 255, halign: 'left' },
+      styles: { font: 'helvetica', fontSize: 10, cellPadding: 5 },
+      alternateRowStyles: { fillColor: [248, 250, 252] },
+    });
+    
+    // Footer
+    const pageHeight = doc.internal.pageSize.height;
+    doc.setFontSize(8);
+    doc.setTextColor(148, 163, 184); // Slate-400
+    doc.text("Automated System Export - Confidential Academic Data", 148, pageHeight - 15, { align: "center" });
+    
+    doc.save("Students_Enrollment_Report.pdf");
+  };
+
   const handleDeleteConfirm = () => {
     setStudents((prev) => prev.filter((s) => s.id !== deleteId));
     setDeleteId(null);
@@ -206,7 +261,7 @@ export default function Students() {
             <p className="text-slate-500 dark:text-slate-400 mt-1">Manage academic records and enrollment status.</p>
           </div>
           <div className="flex gap-3">
-            <button onClick={() => window.print()} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 transition-all text-sm font-medium">
+            <button onClick={handleExportList} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 transition-all text-sm font-medium">
               <Download size={18} /> Export List
             </button>
             <button onClick={openAddModal} className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg transition-all text-sm font-medium">
@@ -368,35 +423,6 @@ export default function Students() {
             </table>
           </div>
         </div>
-      </div>
-
-      <div className="print-only">
-        <div className="pdf-header">
-          <h1 className="text-xl font-bold uppercase">Academic Enrollment Report</h1>
-          <p className="text-[10px]">Reference: EDU-REP-2026 | Date: {new Date().toLocaleDateString()}</p>
-        </div>
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="border border-slate-300 p-2 text-center text-[10px]"><strong>Total Enrolled:</strong> {stats.total}</div>
-          <div className="border border-slate-300 p-2 text-center text-[10px]"><strong>Average GPA:</strong> {stats.avgGpa}</div>
-          <div className="border border-slate-300 p-2 text-center text-[10px]"><strong>Pending Tuition:</strong> {stats.pendingTuition}</div>
-        </div>
-        <table className="pdf-table">
-          <thead><tr><th>ID</th><th>Student Name</th><th>Email</th><th>Course</th><th>GPA</th><th>Tuition</th><th>Status</th></tr></thead>
-          <tbody>
-            {students.map((s) => (
-              <tr key={s.id}>
-                <td>STU-{s.id.padStart(5, '0')}</td>
-                <td><strong>{s.name}</strong></td>
-                <td>{s.email}</td>
-                <td>{s.coarse}</td>
-                <td>{s.gpa.toFixed(1)}</td>
-                <td>{s.tuition}</td>
-                <td className="uppercase">{s.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="mt-12 pt-4 border-t border-slate-200 text-[8px] text-slate-400 text-center">Automated System Export - Confidential Academic Data - Page 1 of 1</div>
       </div>
 
       {showAddModal && (
