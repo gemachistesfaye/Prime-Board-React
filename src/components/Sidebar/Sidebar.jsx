@@ -9,7 +9,7 @@ import {
   Settings, 
   Menu, 
   X,
-  Zap
+  Hexagon
 } from "lucide-react";
 
 const navItems = [
@@ -51,13 +51,14 @@ export const Sidebar = () => {
           md:translate-x-0
         `}
       >
-        <div className="flex items-center gap-3 text-2xl font-black mb-10 mt-4 tracking-tight text-slate-900 dark:text-white cursor-default">
-          <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30">
-            <Zap className="w-5 h-5 text-amber-300 fill-amber-300" />
+        <div className="flex items-center gap-3 text-2xl font-black mt-2 tracking-tight text-slate-900 dark:text-white cursor-default">
+          <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+            <Hexagon className="w-5 h-5 text-white fill-white/20" />
           </div>
           <span>Prime Board</span>
         </div>
-<div className="flex items-center gap-3 text-2xl font-black mb-10 tracking-tight text-slate-900 dark:text-white cursor-default">  </div>
+        
+        <div className="h-px bg-slate-200 dark:bg-slate-800/80 w-full mb-6 mt-6" />
         <nav className="flex flex-col gap-1.5 flex-grow">
           {navItems.map((item) => (
             <div key={item.name}>

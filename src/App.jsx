@@ -14,7 +14,7 @@ import UsersTablePage from "./pages/UsersTablePage";
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
-    return savedTheme === "dark";
+    return savedTheme !== "light";
   });
 
   useEffect(() => {
