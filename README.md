@@ -26,11 +26,11 @@
 
 </div>
 
----<div align="center">
-  <img src="public/banner.png" alt="Prime Board Banner" width="100%" style="border-radius:12px; height:480px; object-fit:cover;" />
-  
+---
+<div align="center">
+  <img src="public/banner.png" alt="Prime Board Banner" width="100%" style="border-radius:12px; max-height:80px; object-fit:cover;" />
   <br/>
-  <br/>
+</div>
 
 
 ## Overview
@@ -42,13 +42,11 @@
 
 ## Screenshots
 
-| Dashboard | Analytics |
-|:---------:|:---------:|
-| <img src="docs/screenshots/1-dashboard.png" width="380" alt="Main Dashboard"> | <img src="docs/screenshots/2-analytics.png" width="380" alt="Analytics Page"> |
-| **Students Table** | **PDF Transcript** |
-| <img src="docs/screenshots/4-users-table.png" width="380" alt="Students Table"> | <img src="docs/screenshots/transcript-preview.png" width="380" alt="PDF Transcript"> |
-| **Booking Interface** | **Settings & Theme** |
-| <img src="docs/screenshots/5-booking.png" width="380" alt="Booking Interface"> | <img src="docs/screenshots/3-settings.png" width="380" alt="Settings"> |
+| Dashboard | Analytics | Settings |
+|:---------:|:---------:|:--------:|
+| <img src="docs/screenshots/1-dashboard.png" width="380" alt="Main Dashboard"> | <img src="docs/screenshots/2-analytics.png" width="380" alt="Analytics Page"> | <img src="docs/screenshots/3-settings.png" width="380" alt="Settings"> |
+| Users Table | Add New Student | Toolkit |
+| <img src="docs/screenshots/4-users-table.png" width="380" alt="Students Table"> | <img src="docs/screenshots/5-add-new-student.png" width="380" alt="Add New Student"> | <img src="docs/screenshots/6-toolkit.png" width="380" alt="Toolkit"> |
 
 ---
 
