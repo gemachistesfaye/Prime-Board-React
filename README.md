@@ -1,68 +1,69 @@
+<div align="center">
+  <img src="public/prime-board-logo.png" alt="Prime Board Logo" width="120" />
+  
+  # Prime Board 
+  **Premium Academic Management Dashboard**
 
-# 🏗️ Buildsphere React Dashboard Template
-
-A sleek, modern, and responsive dashboard & management system built with React, TypeScript and TailwindCSS.  
-Designed for enterprise insights, admin management and mobile-friendly experiences. Supports dark mode, notifications and intuitive navigation.  
-
----
-
-## ✨ Features
-
-- Responsive Design: Works perfectly on desktop, tablet and mobile.  
-- Dark/Light Mode: Toggle via the navbar switch.  
-- Sidebar Navigation: Collapsible sidebar with smooth transitions.  
-- Navbar: Fixed with profile & notifications dropdowns.  
-- Pages:  
-  - Dashboard – Stats cards, Calendar, Export button  
-  - Analytics  
-  - Booking  
-  - Students  
-  - Toolkit  
-  - Settings  
-- Interactive Components: Modals, dropdowns, notifications, hover effects.  
-- Mobile Menu: Hamburger toggle with overlay.  
+  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+  [![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![jsPDF](https://img.shields.io/badge/jsPDF-ff69b4?style=for-the-badge&logo=pdf&logoColor=white)](https://parall.ax/products/jspdf)
+</div>
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Overview
 
-- Frontend: React + TypeScript  
-- Styling: TailwindCSS  
-- Routing: React Router DOM  
-- Icons: Lucide Icons  
-- State Management: useState & useEffect  
+**Prime Board** is a high-fidelity, modern administrative dashboard designed for universities and academic institutions. It provides a seamless, dark-mode-first user experience for managing students, generating official academic transcripts, and analyzing institutional data.
 
----
+## ✨ Key Features
 
-## 💻 Installation & Running Locally
+- 🌓 **Dark Mode First:** Sleek, modern aesthetic featuring glassmorphism and a responsive vertical sidebar layout.
+- 🎓 **Dynamic Student Management:** Complete CRUD capabilities for student records, enrollment statuses, and GPAs.
+- 📄 **Professional PDF Transcripts:** Automated, high-quality PDF generation for academic transcripts using `jspdf` and `jspdf-autotable`.
+- 📊 **Real-time Analytics:** Interactive dashboard metrics to track pending tuition, enrollment counts, and average GPAs.
+- 📱 **Fully Responsive:** Carefully crafted layouts that look perfect on desktop, tablet, and mobile displays.
 
-```bash
-(1)  git clone https://github.com/gemachistesfaye/Buildsphere-react-dashboard-template.git
+## 🛠️ Quick Start
 
-(2)  cd Buildsphere-react-dashboard-template
+### Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-(3)  npm install
+### Installation
 
-(4)  npm start
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/gemachistesfaye/PrimeBoard-React.git
+   cd PrimeBoard-React
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to view the dashboard.
+
+## 📂 Project Structure
+
+```text
+PrimeBoard-React/
+├── public/                 # Static assets (Favicons, Logos)
+├── src/
+│   ├── components/         # Reusable UI components (Navbar, Sidebar, Layout)
+│   ├── pages/              # Primary application views (Dashboard, Students, etc.)
+│   ├── App.jsx             # Main application entry point & routing
+│   └── index.css           # Global Tailwind utilities and base styles
+├── .github/                # GitHub Actions & Issue Templates
+└── package.json            # Project dependencies and scripts
 ```
-```bash
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-```
 
+## 📜 License
 
-## 📅 Day 7 Progress
-
-- ✅ Layout & responsiveness polished for all pages  
-- ✅ Fixed navbar and scrollable main content  
-- ✅ Responsive profile & notifications dropdowns  
-- ✅ Mobile menu overlay working  
-- ✅ Dark mode implemented  
-- ✅ Code cleaned and structured  
-- ✅ README.md & WEEK_PLAN.md updated  
-
----
-
-## 👤 Author
-
-Gemachis Tesfaye – 3rd-year Information Science student  
-GitHub
+This project is licensed under the [MIT License](LICENSE).
