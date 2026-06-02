@@ -23,9 +23,7 @@ export default function Dashboard() {
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Academic Overview
-          </h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Student Dashboard</h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1">
             Monitor student enrollment, course activity and institutional performance
           </p>
@@ -64,8 +62,8 @@ export default function Dashboard() {
 
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-slate-800 dark:text-white">Recent Faculty Activity</h2>
-          <button className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
+          <h2 className="text-lg font-semibold text-slate-800 dark:text-white">Recent Student Activity</h2>
+          <button className="text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors">
             View All
           </button>
         </div>
