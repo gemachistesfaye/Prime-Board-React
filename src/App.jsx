@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar/Navbar";
 
 import Dashboard from "./pages/Dashboard";
 import Analytics from "./pages/Analytics";
-import Booking from "./pages/Booking";
+import Announcements from "./pages/Announcements";
 import Students from "./pages/Students";
 import Toolkit from "./pages/Toolkit";
 import Settings from "./pages/Settings";
@@ -35,7 +35,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/analytics" element={<Analytics />} />
-          <Route path="/booking" element={<Booking />} />
+          <Route path="/announcements" element={<Announcements />} />
           <Route path="/students" element={<Students />} />
           <Route path="/toolkit" element={<Toolkit />} />
           <Route path="/settings" element={<Settings isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />} />

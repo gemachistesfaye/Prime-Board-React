@@ -24,10 +24,10 @@ export default function Dashboard() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Dashboard Overview
+            Academic Overview
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1">
-            Monitor your key metrics and system performance
+            Monitor student enrollment, course activity, and institutional performance
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -58,13 +58,13 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <LineChartCard title="Active Users Growth" dataKey="users" data={lineChartData} />
+        <LineChartCard title="Student Enrollment Growth" dataKey="users" data={lineChartData} />
         <PieChartCard />
       </div>
 
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-slate-800 dark:text-white">Recent Team Activity</h2>
+          <h2 className="text-lg font-semibold text-slate-800 dark:text-white">Recent Faculty Activity</h2>
           <button className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
             View All
           </button>

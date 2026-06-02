@@ -2,9 +2,9 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recha
 
 const data = [
   { name: "Students", value: 400 },
-  { name: "Bookings", value: 300 },
-  { name: "Analytics", value: 300 },
-  { name: "Toolkit", value: 200 },
+  { name: "Courses", value: 300 },
+  { name: "Faculty", value: 200 },
+  { name: "Research", value: 100 },
 ];
 
 const COLORS = ["#6366f1", "#22c55e", "#f59e0b", "#ec4899"];

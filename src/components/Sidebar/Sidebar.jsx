@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   BarChart3,
-  CalendarDays,
+  Megaphone,
   GraduationCap,
   Briefcase,
   Settings,
@@ -15,7 +15,7 @@ import {
 const navItems = [
   { name: "Dashboard", path: "/", icon: LayoutDashboard },
   { name: "Analytics", path: "/analytics", icon: BarChart3 },
-  { name: "Appointments", path: "/booking", icon: CalendarDays },
+  { name: "Announcements", path: "/announcements", icon: Megaphone },
   {
     name: "Students",
     path: "/students",

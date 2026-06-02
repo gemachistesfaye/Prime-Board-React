@@ -1,32 +1,32 @@
-import { Users, ShoppingCart, DollarSign, Activity } from "lucide-react";
+import { GraduationCap, BookOpen, DollarSign, Activity } from "lucide-react";
 
 export const dashboardStats = [
   {
     id: "stat-1",
-    title: "Total Users",
+    title: "Total Students",
     value: "1,240",
     change: "12.5%",
-    icon: <Users size={20} />,
-    period: "last month",
+    icon: <GraduationCap size={20} />,
+    period: "last semester",
     data: [400, 450, 600, 550, 700, 850, 1000, 1100, 1240],
   },
   {
     id: "stat-2",
-    title: "Orders",
-    value: "320",
+    title: "Courses Active",
+    value: "86",
     change: "8.2%",
-    icon: <ShoppingCart size={20} />,
-    period: "last month",
-    data: [200, 210, 180, 250, 280, 260, 300, 310, 320],
+    icon: <BookOpen size={20} />,
+    period: "this semester",
+    data: [60, 62, 65, 68, 72, 75, 78, 82, 86],
   },
   {
     id: "stat-3",
-    title: "Revenue",
-    value: "$12,500",
+    title: "Tuition Collected",
+    value: "$245,800",
     change: "15.1%",
     icon: <DollarSign size={20} />,
-    period: "last month",
-    data: [8000, 8500, 9000, 8800, 10000, 11000, 11500, 12000, 12500],
+    period: "this quarter",
+    data: [80000, 95000, 120000, 148000, 170000, 195000, 215000, 230000, 245800],
   },
   {
     id: "stat-4",

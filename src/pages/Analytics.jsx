@@ -9,22 +9,22 @@ const Analytics = () => (
     <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
-          Advanced Charts
+          Advanced Analytics
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1">
-          Comprehensive data visualization and performance metrics.
+          Comprehensive academic data visualization and performance metrics.
         </p>
       </div>
     </header>
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <StackedBarChartCard title="Monthly Product Sales" data={stackedBarData} />
-      <AreaChartCard title="Revenue Over Time" data={areaChartData} />
+      <StackedBarChartCard title="Enrollment by Department" data={stackedBarData} />
+      <AreaChartCard title="Tuition Revenue Over Time" data={areaChartData} />
     </div>
     <div className="grid grid-cols-1 gap-8">
-      <LineChartCard title="Users Growth" dataKey="users" data={lineChartData} />
+      <LineChartCard title="Student Growth" dataKey="users" data={lineChartData} />
     </div>
     <footer className="pt-8 border-t border-slate-200 dark:border-slate-700 text-center text-slate-400 dark:text-slate-500 text-sm">
-      Data synchronized with Prime Board Analytics Engine • 2026
+      Data synchronized with Prime Board Academic Analytics Engine • 2026
     </footer>
   </div>
 );

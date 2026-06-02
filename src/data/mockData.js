@@ -2,63 +2,63 @@ export const users = [
   { 
     id: 1, 
     name: "Abebe Bikila", 
-    email: "abebe.b@telecom.et", 
+    email: "abebe.b@university.edu.et", 
     status: "Active", 
-    role: "Senior Engineer" 
+    role: "Professor" 
   },
   { 
     id: 2, 
     name: "Lemlem Hailu", 
-    email: "lemlem.h@fintech.et", 
+    email: "lemlem.h@university.edu.et", 
     status: "Active", 
-    role: "Product Manager" 
+    role: "Department Head" 
   },
   { 
     id: 3, 
     name: "Dawit Yohannes", 
-    email: "dawit.y@startup.et", 
+    email: "dawit.y@university.edu.et", 
     status: "Inactive", 
-    role: "UI Designer" 
+    role: "Lecturer" 
   },
   { 
     id: 4, 
     name: "Makeda Gebre", 
-    email: "makeda.g@agency.et", 
+    email: "makeda.g@university.edu.et", 
     status: "Active", 
-    role: "Marketing Lead" 
+    role: "Academic Advisor" 
   },
   { 
     id: 5, 
     name: "Yared Tekle", 
-    email: "yared.t@ict.et", 
+    email: "yared.t@university.edu.et", 
     status: "Inactive", 
-    role: "Backend Developer" 
+    role: "Lab Instructor" 
   },
 ];
 
 export const stackedBarData = [
-  { month: "Jan", productA: 30, productB: 20 },
-  { month: "Feb", productA: 50, productB: 40 },
-  { month: "Mar", productA: 70, productB: 60 },
-  { month: "Apr", productA: 45, productB: 30 },
-  { month: "May", productA: 90, productB: 70 },
-  { month: "Jun", productA: 65, productB: 55 },
+  { month: "Jan", productA: 120, productB: 85 },
+  { month: "Feb", productA: 145, productB: 110 },
+  { month: "Mar", productA: 180, productB: 140 },
+  { month: "Apr", productA: 160, productB: 95 },
+  { month: "May", productA: 210, productB: 175 },
+  { month: "Jun", productA: 190, productB: 150 },
 ];
 
 export const areaChartData = [
-  { date: "2026-01-01", revenue: 100 },
-  { date: "2026-01-02", revenue: 150 },
-  { date: "2026-01-03", revenue: 120 },
-  { date: "2026-01-04", revenue: 180 },
-  { date: "2026-01-05", revenue: 210 },
-  { date: "2026-01-06", revenue: 190 },
+  { date: "Sep", revenue: 42000 },
+  { date: "Oct", revenue: 68000 },
+  { date: "Nov", revenue: 95000 },
+  { date: "Dec", revenue: 78000 },
+  { date: "Jan", revenue: 125000 },
+  { date: "Feb", revenue: 148000 },
 ];
 
 export const lineChartData = [
-  { month: "Jan", users: 10 },
-  { month: "Feb", users: 15 },
-  { month: "Mar", users: 12 },
-  { month: "Apr", users: 22 },
-  { month: "May", users: 30 },
-  { month: "Jun", users: 28 },
+  { month: "Jan", users: 820 },
+  { month: "Feb", users: 890 },
+  { month: "Mar", users: 960 },
+  { month: "Apr", users: 1050 },
+  { month: "May", users: 1140 },
+  { month: "Jun", users: 1240 },
 ];
