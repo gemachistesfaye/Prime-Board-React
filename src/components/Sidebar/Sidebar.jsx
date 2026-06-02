@@ -9,7 +9,7 @@ import {
   Settings,
   Menu,
   X,
-  Crown
+  Crown, PenTool
 } from "lucide-react";
 
 const navItems = [
@@ -20,11 +20,10 @@ const navItems = [
     name: "Students",
     path: "/students",
     icon: GraduationCap,
-    children: [
-      { name: "Users Table", path: "/students/users" },
-    ]
+
   },
   { name: "Toolkit", path: "/toolkit", icon: Briefcase },
+  { name: "Posts", path: "/posts", icon: PenTool },
 ];
 
 export const Sidebar = () => {

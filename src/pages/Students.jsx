@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { 
-  Search, Plus, Edit2, Trash2, CheckCircle2, XCircle, 
+import {
+  Search, Plus, Edit2, Trash2, CheckCircle2, XCircle,
   GraduationCap, Download, AlertTriangle, MoreVertical, UserCheck, UserX, FileText, BookOpen
 } from 'lucide-react';
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
 const initialStudents = [
-  { id: "1", name: "Alice Johnson", email: "alice@example.com", status: "Active", coarse: "Computer Science", joined: "2024-01-15", gpa: 3.8, tuition: "Paid", courses: [{name: "Data Structures", credits: 3.0, grade: "A"}, {name: "Algorithms", credits: 3.0, grade: "A-"}] },
-  { id: "2", name: "Bob Smith", email: "bob@example.com", status: "Inactive", coarse: "Mathematics", joined: "2024-02-20", gpa: 2.9, tuition: "Pending", courses: [{name: "Calculus I", credits: 4.0, grade: "B"}, {name: "Linear Algebra", credits: 3.0, grade: "C+"}] },
-  { id: "3", name: "Carol White", email: "carol@example.com", status: "Active", coarse: "Physics", joined: "2024-03-10", gpa: 3.5, tuition: "Paid", courses: [{name: "Quantum Mechanics", credits: 4.0, grade: "A"}, {name: "Thermodynamics", credits: 3.0, grade: "B+"}] },
-  { id: "4", name: "David Brown", email: "david@example.com", status: "Active", coarse: "Chemistry", joined: "2024-04-05", gpa: 3.2, tuition: "Paid", courses: [{name: "Organic Chemistry", credits: 4.0, grade: "B"}, {name: "Inorganic Chemistry", credits: 3.0, grade: "B+"}] },
+  { id: "1", name: "Alice Johnson", email: "alice@example.com", status: "Active", coarse: "Computer Science", joined: "2024-01-15", gpa: 3.8, tuition: "Paid", courses: [{ name: "Data Structures", credits: 3.0, grade: "A" }, { name: "Algorithms", credits: 3.0, grade: "A-" }] },
+  { id: "2", name: "Bob Smith", email: "bob@example.com", status: "Inactive", coarse: "Mathematics", joined: "2024-02-20", gpa: 2.9, tuition: "Pending", courses: [{ name: "Calculus I", credits: 4.0, grade: "B" }, { name: "Linear Algebra", credits: 3.0, grade: "C+" }] },
+  { id: "3", name: "Carol White", email: "carol@example.com", status: "Active", coarse: "Physics", joined: "2024-03-10", gpa: 3.5, tuition: "Paid", courses: [{ name: "Quantum Mechanics", credits: 4.0, grade: "A" }, { name: "Thermodynamics", credits: 3.0, grade: "B+" }] },
+  { id: "4", name: "David Brown", email: "david@example.com", status: "Active", coarse: "Chemistry", joined: "2024-04-05", gpa: 3.2, tuition: "Paid", courses: [{ name: "Organic Chemistry", credits: 4.0, grade: "B" }, { name: "Inorganic Chemistry", credits: 3.0, grade: "B+" }] },
 ];
 
 export default function Students() {
@@ -38,7 +38,7 @@ export default function Students() {
   };
 
   const toggleStatus = (id) => {
-    setStudents(prev => prev.map(s => 
+    setStudents(prev => prev.map(s =>
       s.id === id ? { ...s, status: s.status === 'Active' ? 'Inactive' : 'Active' } : s
     ));
     setActiveMenuId(null);
@@ -50,28 +50,28 @@ export default function Students() {
       { name: "Advanced Methodology", credits: 3.0, grade: student.gpa >= 3.2 ? "A-" : "B" },
       { name: "Elective Seminar", credits: 3.0, grade: "A" }
     ];
-    
+
     const doc = new jsPDF();
-    
+
     // Header
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
     doc.setTextColor(30, 58, 138); // Blue-900
     doc.text("Prime Board University", 14, 22);
-    
+
     doc.setFontSize(12);
     doc.setTextColor(100, 116, 139); // Slate-500
     doc.text("OFFICIAL ACADEMIC TRANSCRIPT", 14, 30);
-    
+
     // Separator line
     doc.setDrawColor(226, 232, 240); // Slate-200
     doc.line(14, 35, 196, 35);
-    
+
     // Student Info
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(15, 23, 42); // Slate-900
-    
+
     doc.text(`Student Name: ${student.name}`, 14, 45);
     doc.text(`Student ID: STU-${student.id.padStart(5, '0')}`, 14, 52);
     doc.text(`Email Address: ${student.email}`, 14, 59);
@@ -84,7 +84,7 @@ export default function Students() {
     doc.setFontSize(12);
     doc.setTextColor(30, 58, 138);
     doc.text("ACADEMIC PERFORMANCE", 14, 75);
-    
+
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(15, 23, 42);
@@ -102,14 +102,14 @@ export default function Students() {
       alternateRowStyles: { fillColor: [248, 250, 252] },
       margin: { top: 10 }
     });
-    
+
     // Footer
     const pageHeight = doc.internal.pageSize.height;
     doc.setFontSize(8);
     doc.setTextColor(148, 163, 184); // Slate-400
     doc.text("*** END OF OFFICIAL TRANSCRIPT ***", 105, pageHeight - 20, { align: "center" });
     doc.text("This document is generated automatically and does not require a signature.", 105, pageHeight - 15, { align: "center" });
-    
+
     doc.save(`${student.name.replace(/\s+/g, '_')}_Transcript.pdf`);
     setActiveMenuId(null);
   };
@@ -148,15 +148,15 @@ export default function Students() {
     setStudents((prev) =>
       prev.map((s) =>
         s.id === editId
-          ? { 
-              ...s, 
-              name: String(data.get("name") ?? ""), 
-              email: String(data.get("email") ?? ""), 
-              coarse: String(data.get("coarse") ?? ""),
-              gpa: parseFloat(data.get("gpa") ?? "0.0"),
-              tuition: String(data.get("tuition") ?? "Pending"),
-              courses: [...modalCourses]
-            }
+          ? {
+            ...s,
+            name: String(data.get("name") ?? ""),
+            email: String(data.get("email") ?? ""),
+            coarse: String(data.get("coarse") ?? ""),
+            gpa: parseFloat(data.get("gpa") ?? "0.0"),
+            tuition: String(data.get("tuition") ?? "Pending"),
+            courses: [...modalCourses]
+          }
           : s
       )
     );
@@ -167,26 +167,26 @@ export default function Students() {
 
   const handleExportList = () => {
     const doc = new jsPDF('landscape');
-    
+
     // Header
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
     doc.setTextColor(30, 58, 138); // Blue-900
     doc.text("Prime Board University", 14, 22);
-    
+
     doc.setFontSize(12);
     doc.setTextColor(100, 116, 139); // Slate-500
     doc.text("ACADEMIC ENROLLMENT REPORT", 14, 30);
-    
+
     // Separator line
     doc.setDrawColor(226, 232, 240); // Slate-200
     doc.line(14, 35, 283, 35);
-    
+
     // Summary Stats
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(15, 23, 42); // Slate-900
-    
+
     doc.text(`Total Enrolled: ${stats.total}`, 14, 45);
     doc.text(`Average GPA: ${stats.avgGpa}`, 100, 45);
     doc.text(`Pending Tuition: ${stats.pendingTuition}`, 180, 45);
@@ -210,13 +210,13 @@ export default function Students() {
       styles: { font: 'helvetica', fontSize: 10, cellPadding: 5 },
       alternateRowStyles: { fillColor: [248, 250, 252] },
     });
-    
+
     // Footer
     const pageHeight = doc.internal.pageSize.height;
     doc.setFontSize(8);
     doc.setTextColor(148, 163, 184); // Slate-400
     doc.text("Automated System Export - Confidential Academic Data", 148, pageHeight - 15, { align: "center" });
-    
+
     doc.save("Students_Enrollment_Report.pdf");
   };
 
@@ -232,9 +232,9 @@ export default function Students() {
   };
 
   const filtered = students.filter(s => {
-    const matchesSearch = s.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          s.email.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          s.coarse.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.coarse.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesTab = selectedTab === 'All' || s.status === selectedTab;
     return matchesSearch && matchesTab;
   });
@@ -257,8 +257,8 @@ export default function Students() {
       <div className="no-print max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Students</h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-1">Manage academic records and enrollment status.</p>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Student Management</h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-1">Manage academic records and enrollment status for students.</p>
           </div>
           <div className="flex gap-3">
             <button onClick={handleExportList} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 transition-all text-sm font-medium">
@@ -295,11 +295,11 @@ export default function Students() {
           <div className="p-4 border-b border-slate-200 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-800/20 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div className="relative search-container w-full lg:w-auto">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <input 
-                type="text" 
-                placeholder="Search name, email, or course..." 
-                value={searchQuery} 
-                onChange={(e) => setSearchQuery(e.target.value)} 
+              <input
+                type="text"
+                placeholder="Search name, email, or course..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4 py-2 w-full lg:w-80 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm transition-all text-slate-700 dark:text-slate-200 placeholder:text-slate-400"
               />
             </div>
@@ -345,64 +345,61 @@ export default function Students() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-bold ${
-                        student.gpa >= 3.5 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400' :
-                        student.gpa >= 3.0 ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400' :
-                        'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'
-                      }`}>
+                      <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-bold ${student.gpa >= 3.5 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400' :
+                          student.gpa >= 3.0 ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400' :
+                            'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'
+                        }`}>
                         {student.gpa.toFixed(1)}
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`text-xs font-medium px-2 py-1 rounded-md ${
-                        student.tuition === 'Paid' ? 'text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10' : 'text-amber-600 bg-amber-50 dark:bg-amber-500/10'
-                      }`}>
+                      <span className={`text-xs font-medium px-2 py-1 rounded-md ${student.tuition === 'Paid' ? 'text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10' : 'text-amber-600 bg-amber-50 dark:bg-amber-500/10'
+                        }`}>
                         {student.tuition}
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${
-                        student.status === 'Active' 
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${student.status === 'Active'
                           ? 'bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
                           : 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-500/10 dark:text-rose-400 dark:border-rose-500/20'
-                      }`}>
+                        }`}>
                         {student.status === 'Active' ? <CheckCircle2 size={12} /> : <XCircle size={12} />}
                         {student.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right relative">
-                      <button 
-                        onClick={() => setActiveMenuId(activeMenuId === student.id ? null : student.id)} 
+                      <button
+                        onClick={() => setActiveMenuId(activeMenuId === student.id ? null : student.id)}
                         className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-400 transition-colors"
                       >
                         <MoreVertical size={16} />
                       </button>
                       {activeMenuId === student.id && (
                         <div className="absolute right-6 mt-1 w-40 bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 rounded-xl z-50 text-left py-1.5 overflow-hidden">
-                          <button 
-                            onClick={() => handleDownloadTranscript(student)} 
+                          <button
+                            onClick={() => handleDownloadTranscript(student)}
                             className="w-full px-4 py-2 text-xs hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium"
                           >
-                            <Download size={12}/> Download Transcript
+                            <Download size={12} /> Download Transcript
                           </button>
-                          <button 
-                            onClick={() => { setActiveMenuId(null); handleEditOpen(student); }} 
+                          <button
+                            onClick={() => { setActiveMenuId(null); handleEditOpen(student); }}
                             className="w-full px-4 py-2 text-xs hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-slate-700 dark:text-slate-300"
                           >
-                            <Edit2 size={12}/> Edit Details
+                            <Edit2 size={12} /> Edit Details
                           </button>
-                          <button 
-                            onClick={() => toggleStatus(student.id)} 
+                          <button
+                            onClick={() => toggleStatus(student.id)}
                             className="w-full px-4 py-2 text-xs hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-slate-700 dark:text-slate-300"
                           >
-                             {student.status === 'Active' ? <UserX size={12}/> : <UserCheck size={12}/>} Change Status
+                            {student.status === 'Active' ? <UserX size={12} /> : <UserCheck size={12} />} Change Status
                           </button>
                           <div className="h-px bg-slate-100 dark:bg-slate-700 my-1" />
-                          <button 
-                            onClick={() => { setActiveMenuId(null); setDeleteId(student.id); }} 
+                          <button
+                            onClick={() => { setActiveMenuId(null); setDeleteId(student.id); }}
                             className="w-full px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 flex items-center gap-2"
                           >
-                            <Trash2 size={12}/> Remove
+                            <Trash2 size={12} /> Remove
                           </button>
                         </div>
                       )}
@@ -472,7 +469,7 @@ export default function Students() {
                       <input value={c.name} onChange={e => updateCourse(i, 'name', e.target.value)} placeholder="Course name" className="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-blue-500/20 outline-none text-xs transition-all dark:text-slate-200" required />
                       <input type="number" step="0.5" value={c.credits} onChange={e => updateCourse(i, 'credits', parseFloat(e.target.value))} placeholder="Cr." className="w-16 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-blue-500/20 outline-none text-xs transition-all dark:text-slate-200" required />
                       <input value={c.grade} onChange={e => updateCourse(i, 'grade', e.target.value)} placeholder="Gr." className="w-16 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-blue-500/20 outline-none text-xs transition-all dark:text-slate-200" required />
-                      <button type="button" onClick={() => setModalCourses(modalCourses.filter((_, idx) => idx !== i))} className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 p-1.5 rounded-lg transition-colors"><XCircle size={14}/></button>
+                      <button type="button" onClick={() => setModalCourses(modalCourses.filter((_, idx) => idx !== i))} className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 p-1.5 rounded-lg transition-colors"><XCircle size={14} /></button>
                     </div>
                   ))}
                 </div>
@@ -534,7 +531,7 @@ export default function Students() {
                       <input value={c.name} onChange={e => updateCourse(i, 'name', e.target.value)} placeholder="Course name" className="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-blue-500/20 outline-none text-xs transition-all dark:text-slate-200" required />
                       <input type="number" step="0.5" value={c.credits} onChange={e => updateCourse(i, 'credits', parseFloat(e.target.value))} placeholder="Cr." className="w-16 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-blue-500/20 outline-none text-xs transition-all dark:text-slate-200" required />
                       <input value={c.grade} onChange={e => updateCourse(i, 'grade', e.target.value)} placeholder="Gr." className="w-16 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-blue-500/20 outline-none text-xs transition-all dark:text-slate-200" required />
-                      <button type="button" onClick={() => setModalCourses(modalCourses.filter((_, idx) => idx !== i))} className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 p-1.5 rounded-lg transition-colors"><XCircle size={14}/></button>
+                      <button type="button" onClick={() => setModalCourses(modalCourses.filter((_, idx) => idx !== i))} className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 p-1.5 rounded-lg transition-colors"><XCircle size={14} /></button>
                     </div>
                   ))}
                 </div>

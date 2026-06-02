@@ -12,7 +12,7 @@ import Announcements from "./pages/Announcements";
 import Students from "./pages/Students";
 import Toolkit from "./pages/Toolkit";
 import Settings from "./pages/Settings";
-import UsersTablePage from "./pages/UsersTablePage";
+import Posts from "./pages/Posts";
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -39,7 +39,7 @@ export default function App() {
           <Route path="/students" element={<Students />} />
           <Route path="/toolkit" element={<Toolkit />} />
           <Route path="/settings" element={<Settings isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />} />
-          <Route path="/students/users" element={<UsersTablePage />} />
+          <Route path="/posts" element={<Posts />} />
         </Routes>
       </Layout>
     </Router>

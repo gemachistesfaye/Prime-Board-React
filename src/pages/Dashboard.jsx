@@ -21,24 +21,23 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Student Dashboard</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">
-            Monitor student enrollment, course activity and institutional performance
-          </p>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm">
-            <Calendar size={18} />
-            <span>{currentDate}</span>
-          </button>
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl shadow-md shadow-blue-500/20 transition-all active:scale-95">
-            <Download size={18} />
-            <span className="hidden sm:inline">Export Report</span>
-          </button>
-        </div>
-      </div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-b border-gray-200 dark:border-gray-800">
+  <div>
+    <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">PrimeBoard Dashboard</h1>
+    <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+      Monitor student enrollment, course activity and institutional performance.
+    </p>
+  </div>
+  <div className="flex items-center gap-3 sm:self-center">
+    <span className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">
+      {currentDate}
+    </span>
+    <button className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white text-xs sm:text-sm font-medium rounded-lg transition-all active:scale-95 shrink-0">
+      <Download size={14} />
+      <span>Export Report</span>
+    </button>
+  </div>
+</div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {dashboardStats.map((stat) => (
@@ -67,9 +66,9 @@ export default function Dashboard() {
             View All
           </button>
         </div>
-        <Table 
-          columns={["Name", "Email", "Role", "Status"]} 
-          data={users.slice(0, 4)} 
+        <Table
+          columns={["Name", "Email", "Role", "Status"]}
+          data={users.slice(0, 4)}
         />
       </div>
     </div>
