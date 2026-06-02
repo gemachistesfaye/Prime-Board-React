@@ -8,16 +8,14 @@ import { Table } from "../components/Table/Table";
 import { lineChartData, users } from "../data/mockData";
 
 export default function Dashboard() {
-  const [currentMonth, setCurrentMonth] = useState(() => new Date().toLocaleString("default", { month: "long", year: "numeric" }));
+  const [currentDate, setCurrentDate] = useState(() => new Date().toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }));
 
   useEffect(() => {
-    const updateMonth = () => {
-      setCurrentMonth(new Date().toLocaleString("default", { month: "long", year: "numeric" }));
+    const update = () => {
+      setCurrentDate(new Date().toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }));
     };
-    // Update every minute to keep it current
-    const intervalId = setInterval(updateMonth, 60000);
-    // Also update immediately in case of delayed start
-    updateMonth();
+    update();
+    const intervalId = setInterval(update, 60000);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -35,7 +33,7 @@ export default function Dashboard() {
         <div className="flex flex-wrap items-center gap-3">
           <button className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-sm font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm">
             <Calendar size={18} />
-            <span>{currentMonth}</span>
+            <span>{currentDate}</span>
           </button>
           <button className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl shadow-md shadow-blue-500/20 transition-all active:scale-95">
             <Download size={18} />
@@ -44,7 +42,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {dashboardStats.map((stat) => (
           <StatCard
             key={stat.id}

@@ -34,28 +34,39 @@ export const Sidebar = () => {
 
   return (
     <>
-      <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-colors"
-        onClick={toggleSidebar}
-        aria-label="Toggle sidebar"
-      >
-        {isOpen ? <X size={20} /> : <Menu size={20} />}
-      </button>
+      {!isOpen && (
+        <button
+          className="md:hidden fixed top-3.5 left-4 z-[60] p-1.5 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          onClick={toggleSidebar}
+          aria-label="Open sidebar"
+        >
+          <Menu size={24} />
+        </button>
+      )}
 
       <aside
         className={`
-          fixed top-0 left-0 h-full z-[60] w-64 glass-panel text-slate-700 dark:text-slate-200
+          fixed top-0 left-0 h-full z-[70] w-64 glass-panel text-slate-700 dark:text-slate-200
           flex flex-col p-6 border-r border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none
           transform transition-transform duration-300
           ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
           md:translate-x-0
         `}
       >
-        <div className="flex items-center gap-3 text-2xl font-black mt-2 tracking-tight text-slate-900 dark:text-white cursor-default">
-          <div className="w-9 h-9 bg-gradient-to-br from-amber-400 to-orange-500 dark:from-blue-700 dark:to-indigo-900 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/40 dark:shadow-indigo-500/40 border border-orange-500/20 dark:border-indigo-500/20 transition-colors">
-            <Crown className="w-5 h-5 text-white dark:text-amber-400 fill-white/20 dark:fill-amber-400/20 transition-colors" />
+        <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center gap-3 text-xl font-black tracking-tight text-slate-900 dark:text-white cursor-default whitespace-nowrap">
+            <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 dark:from-blue-700 dark:to-indigo-900 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/40 dark:shadow-indigo-500/40 border border-orange-500/20 dark:border-indigo-500/20 transition-colors">
+              <Crown className="w-4 h-4 text-white dark:text-amber-400 fill-white/20 dark:fill-amber-400/20 transition-colors" />
+            </div>
+            <span>Prime Board</span>
           </div>
-          <span>Prime Board</span>
+          <button 
+            onClick={toggleSidebar} 
+            className="md:hidden p-2 -mr-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+            aria-label="Close sidebar"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         <div className="h-px bg-slate-200 dark:bg-slate-800/80 w-full mb-6 mt-6" />
