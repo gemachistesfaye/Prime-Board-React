@@ -8,13 +8,17 @@ import { Table } from "../components/Table/Table";
 import { lineChartData, users } from "../data/mockData";
 
 export default function Dashboard() {
-  const [currentMonth, setCurrentMonth] = useState("");
+  const [currentMonth, setCurrentMonth] = useState(() => new Date().toLocaleString("default", { month: "long", year: "numeric" }));
 
   useEffect(() => {
-    const now = new Date();
-    const monthName = now.toLocaleString("default", { month: "long" });
-    const year = now.getFullYear();
-    setCurrentMonth(`${monthName} ${year}`);
+    const updateMonth = () => {
+      setCurrentMonth(new Date().toLocaleString("default", { month: "long", year: "numeric" }));
+    };
+    // Update every minute to keep it current
+    const intervalId = setInterval(updateMonth, 60000);
+    // Also update immediately in case of delayed start
+    updateMonth();
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
