@@ -23,7 +23,8 @@ export default function Dashboard() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-b border-gray-200 dark:border-gray-800">
   <div>
-    <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">PrimeBoard Dashboard</h1>
+    
+    <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">PrimeBoard Dashboard</h1>
     <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
       Monitor student enrollment, course activity and institutional performance.
     </p>
